@@ -1,24 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header({ title }) {
+  const [searchOpen, setSearchOpen] = useState(false);
   return (
     <div>
-      <Link to="/profile">
-        <img
-          src={ profileIcon }
-          data-testid="profile-top-btn"
-          alt="Ícone de perfil"
-        />
-      </Link>
-      {(title !== 'Profile' && title !== 'Done Recipes' && title !== 'Favorite Recipes')
+      <header>
+        <Link to="/profile">
+          <img
+            src={ profileIcon }
+            data-testid="profile-top-btn"
+            alt="Profile icon"
+          />
+        </Link>
+        {(title !== 'Profile' && title !== 'Done Recipes' && title !== 'Favorite Recipes')
       && (
         <button
           type="button"
-          // Esse botão tem que tem que mostrar a barra de busca
+          onClick={ () => setSearchOpen(!searchOpen) }
         >
           <img
             src={ searchIcon }
@@ -27,7 +29,9 @@ function Header({ title }) {
           />
         </button>
       )}
-      <h1 data-testid="page-title">{title}</h1>
+        {searchOpen && <input data-testid="search-input" />}
+        <h1 data-testid="page-title">{title}</h1>
+      </header>
     </div>
   );
 }
