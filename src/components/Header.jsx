@@ -1,12 +1,11 @@
 import React from 'react';
 import { string } from 'prop-types';
-import profileIcon from '../images/profileIcon.svg';
 
 function Header({ title }) {
   return (
     <div>
       <img
-        src={ profileIcon }
+        src="../images/profileIcon.svg"
         data-testid="profile-top-btn"
         alt="Ícone de perfil"
       />
