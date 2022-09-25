@@ -1,12 +1,12 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouber from './helpers/renderWithRouter';
-import Header from '../components/Header';
+import renderWithRouter from './helpers/renderWithRouter';
+import Meals from '../pages/Meals';
 
 describe('Testa o componente Header', () => {
   it('Testa se os elementos são renderizados', () => {
-    renderWithRouber(<Header />);
+    renderWithRouter(<Meals />);
 
     const profileLink = screen.getByTestId('profile-top-btn');
     expect(profileLink).toBeInTheDocument();
@@ -16,10 +16,11 @@ describe('Testa o componente Header', () => {
   });
 
   it('Testa se o botão search está funcionando', () => {
-    renderWithRouber(<Header />);
+    renderWithRouter(<Meals />);
 
     const searchTopButton = screen.getByTestId('search-top-btn');
+    const searchInput = screen.findByTestId('search-input');
     userEvent.click(searchTopButton);
-    expect(screen.findByTestId('search-input')).toBeInTheDocument();
+    waitFor(() => expect(searchInput).toBeInTheDocument());
   });
 });
