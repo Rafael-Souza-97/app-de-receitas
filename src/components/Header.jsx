@@ -1,17 +1,19 @@
 import React from 'react';
 import { string } from 'prop-types';
+import profileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/searchIcon.svg';
 
 function Header({ title }) {
   return (
     <div>
       <img
-        src="../images/profileIcon.svg"
+        src={ profileIcon }
         data-testid="profile-top-btn"
         alt="Ícone de perfil"
       />
       {(title !== 'Profile' && title !== 'Done Recipes' && title !== 'Favorite Recipes')
       && <img
-        src="../images/searchIcon.svg"
+        src={ searchIcon }
         data-testid="search-top-btn"
         alt="Search Icon"
       />}
