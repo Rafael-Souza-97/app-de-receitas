@@ -3,6 +3,7 @@ import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header({ title }) {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -31,6 +32,7 @@ function Header({ title }) {
       )}
         {searchOpen && <input data-testid="search-input" />}
         <h1 data-testid="page-title">{title}</h1>
+        <SearchBar />
       </header>
     </div>
   );
