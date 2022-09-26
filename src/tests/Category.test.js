@@ -24,12 +24,26 @@ describe('Testa a página meals', () => {
     userEvent.click(loginBtn);
 
     // Página Meals - "/meals"
-    const mealCard1 = await screen.findByTestId('0-recipe-card');
-    const mealCard12 = await screen.findByTestId('11-recipe-card');
+    waitFor(() => {
+      const filterButtons = screen.getAllByTestId(/category-filter/i);
+      const filterButtonsQuantity = 5;
+      expect(filterButtons).toHaveLength(filterButtonsQuantity);
+      expect(filterButtons[3]).toHaveTextContent(/Chicken/i);
+    });
+
+    const footer = screen.getByTestId('footer');
+    expect(footer).toBeInTheDocument();
+    const drinkIcon = screen.getByTestId(/drinks-bottom-btn/i);
+    expect(drinkIcon).toBeInTheDocument();
+    userEvent.click(drinkIcon);
+
+    // Página Drinks - "/drinks"
 
     waitFor(() => {
-      expect(mealCard1).toBeInTheDocument();
-      expect(mealCard12).toBeInTheDocument();
+      const filterButtons = screen.getAllByTestId(/category-filter/i);
+      const filterButtonsQuantity = 5;
+      expect(filterButtons).toHaveLength(filterButtonsQuantity);
+      expect(filterButtons[3]).toHaveTextContent(/shake/i);
     });
   });
 });
