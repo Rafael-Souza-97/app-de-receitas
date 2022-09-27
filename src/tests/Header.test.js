@@ -25,10 +25,23 @@ describe('Testa o componente Header', () => {
 
   it('Testa se o botão search está funcionando', () => {
     renderWithRouter(<App />);
-
+    // screen.logTestingPlaygroundURL();
     const searchTopButton = screen.getByTestId('search-top-btn');
     const searchInput = screen.findByTestId('search-input');
     userEvent.click(searchTopButton);
     waitFor(() => expect(searchInput).toBeInTheDocument());
+
+    const radioButton = screen.getByTestId('name-search-radio');
+    userEvent.click(searchTopButton);
+    waitFor(() => expect(radioButton).toBeInTheDocument());
+  });
+
+  it('Testa o input', () => {
+    renderWithRouter(<App />);
+    const searchTopButton = screen.getByTestId('search-top-btn');
+    userEvent.click(searchTopButton);
+    const inputValueFilter = screen.getByTestId('search-input');
+    userEvent.type(inputValueFilter, 'beef');
+    waitFor(() => expect(inputValueFilter).toHaveProperty('value', 'beef'));
   });
 });

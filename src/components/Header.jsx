@@ -38,13 +38,18 @@ function Header({ title }) {
           />
         </button>
       )}
-        {searchOpen && <input
-          data-testid="search-input"
-          value={ inputValue }
-          onChange={ handleChange }
-        />}
+        {searchOpen
+        && (
+          <div>
+            <input
+              data-testid="search-input"
+              value={ inputValue }
+              onChange={ handleChange }
+            />
+            <SearchBar />
+          </div>)}
         <h1 data-testid="page-title">{title}</h1>
-        <SearchBar />
+        {/* <SearchBar /> */}
       </header>
     </div>
   );

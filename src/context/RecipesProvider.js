@@ -10,7 +10,7 @@ function RecipesProvider({ children }) {
   });
   const [renderMeals12Cards, setRenderMeals12Cards] = useState([]);
   const [renderDrinks12Cards, setRenderDrinks12Cards] = useState([]);
-  const [filterSearch, setFilterSearch] = useState(''); // vai verificar fazer o role ficar marcado
+  const [filterSearch, setFilterSearch] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [showRecipes, setShowRecipes] = useState([]);
 

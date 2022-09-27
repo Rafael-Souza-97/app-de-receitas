@@ -1,10 +1,8 @@
 import React, { useContext } from 'react';
 import RecipesContext from '../context/RecipesContext';
-// import RecipesProvider from '../context/RecipesProvider';
 import filteredAPI from '../services/fetchs/filteredAPI';
 
 function SearchBar() {
-  // criar estados no provider
   const {
     inputValue,
     filterSearch,
@@ -17,7 +15,6 @@ function SearchBar() {
   };
 
   // Testar um switch case ou um if Else para rodar o filtro certo
-  // Mensagem de alerta 'Your search must have only 1 (one) character'
   const handleClick = () => {
     let endpoint = '';
     let recipes = [];
@@ -45,7 +42,6 @@ function SearchBar() {
         data-testid="ingredient-search-radio"
         value="Ingredient"
         onChange={ handleChange }
-        // criar um handleChange para trocar qual está selecionado (talvez com um target )
       />
       Ingrediente
       <input
