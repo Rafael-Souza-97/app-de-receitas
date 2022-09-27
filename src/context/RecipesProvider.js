@@ -10,6 +10,9 @@ function RecipesProvider({ children }) {
   });
   const [renderMeals12Cards, setRenderMeals12Cards] = useState([]);
   const [renderDrinks12Cards, setRenderDrinks12Cards] = useState([]);
+  const [filterSearch, setFilterSearch] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const [showRecipes, setShowRecipes] = useState([]);
 
   useEffect(() => {
     const mealsData = async () => {
@@ -33,6 +36,13 @@ function RecipesProvider({ children }) {
     setUserLogin,
     setRenderMeals12Cards,
     setRenderDrinks12Cards,
+    inputValue,
+    setInputValue,
+    showRecipes,
+    setShowRecipes,
+    filterSearch,
+    setFilterSearch,
+
   };
 
   return (
