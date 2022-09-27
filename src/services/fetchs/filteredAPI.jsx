@@ -1,6 +1,11 @@
-async function filteredAPI(endpoint) {
-  const respon = await fetch(endpoint);
-  const data = await respon.json();
+export async function filterMealsAPI(endpoint) {
+  const response = await fetch(endpoint);
+  const data = await response.json();
   return data;
 }
-export default filteredAPI;
+
+export async function filterDrinkAPI(endpoint) {
+  const resp = await fetch(endpoint);
+  const data = await resp.json();
+  return data;
+}
