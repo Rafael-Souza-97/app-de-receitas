@@ -11,6 +11,9 @@ function DrinkDetails({ match: { path, params: { id } } }) {
     ingredientes: [],
     measures: [],
   });
+  const { ingredientes, measures } = ingredientesDrink;
+  const mix = ingredientes.map((e, i) => `${e} - ${measures[i]}`);
+  // console.log(newArray);
 
   useEffect(() => {
     const getDrinkInfo = async () => {
@@ -27,7 +30,6 @@ function DrinkDetails({ match: { path, params: { id } } }) {
         measures: upDateMeasures,
       });
     };
-
     ingredientesAndMeasure();
     getDrinkInfo();
   }, [id, ingredientesDrink]);
@@ -39,6 +41,7 @@ function DrinkDetails({ match: { path, params: { id } } }) {
         id={ id }
         path={ path }
         dataDrink={ infoDrinks }
+        ingredientesAndMeasuresDrink={ mix }
         filteredIngredienteDrink={ ingredientesDrink.ingredientes }
         filteredMeasureDrink={ ingredientesDrink.measures }
       />

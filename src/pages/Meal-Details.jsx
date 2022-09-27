@@ -11,6 +11,9 @@ function MealDetails({ match: { path, params: { id } } }) {
     measures: [],
   });
 
+  const { ingredientes, measures } = ingredientesMeal;
+  const mix = ingredientes.map((e, i) => `${e} - ${measures[i]}`);
+
   useEffect(() => {
     const getMealInfo = async () => {
       const data = await fetchMealsDetails(id);
@@ -30,7 +33,8 @@ function MealDetails({ match: { path, params: { id } } }) {
     ingredientesAndMeasure();
     getMealInfo();
   }, [id, ingredientesMeal]);
-
+  // console.log(ingredientesMeal.ingredientes);
+  // console.log(ingredientesMeal.measures);
   return (
     <>
       <div>Meal-Details</div>
@@ -38,6 +42,7 @@ function MealDetails({ match: { path, params: { id } } }) {
         id={ id }
         path={ path }
         dataMeal={ infoMeals }
+        ingredientesAndMeasuresMeal={ mix }
         filteredIngredienteMeal={ ingredientesMeal.ingredientes }
         filteredMeasureMeal={ ingredientesMeal.measures }
       />
