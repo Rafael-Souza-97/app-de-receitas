@@ -25,7 +25,6 @@ describe('Testa o componente Header', () => {
 
   it('Testa se o botão search está funcionando', () => {
     renderWithRouter(<App />);
-    // screen.logTestingPlaygroundURL();
     const searchTopButton = screen.getByTestId('search-top-btn');
     const searchInput = screen.findByTestId('search-input');
     userEvent.click(searchTopButton);
