@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import RecipesContext from '../context/RecipesContext';
+import Carousel from './Carousel';
+
+const SIX = 6;
 
 function RecipeDetails({ id, path, dataMeal,
   dataDrink, ingredientesAndMeasuresDrink, ingredientesAndMeasuresMeal }) {
+  const {
+    renderMeals12Cards,
+    renderDrinks12Cards,
+  } = useContext(RecipesContext);
+  // console.log(renderDrinks12Cards, renderMeals12Cards);
+  const render6MealsItems = renderMeals12Cards.slice(0, SIX);
+  const render6DrinksItems = renderDrinks12Cards.slice(0, SIX);
+  // console.log(render6MealsItems);
   const mapDrinks = () => {
     const info = dataDrink.map((element, index) => (
       <div key={ index }>
@@ -42,6 +54,7 @@ function RecipeDetails({ id, path, dataMeal,
             </li>
           ))}
         </ul>
+        <Carousel path={ path } sixDrinks={ render6DrinksItems } />
       </div>
     ));
     return info;
@@ -72,7 +85,7 @@ function RecipeDetails({ id, path, dataMeal,
         <iframe
           data-testid="video"
           title="video"
-          src={ element.strYoutube }
+          src={ `https://www.youtube.com/embed/${element.strYoutube.split('=')[1]}` }
           width="100%"
           height="360"
         />
@@ -94,6 +107,7 @@ function RecipeDetails({ id, path, dataMeal,
             </li>
           ))}
         </ul>
+        <Carousel path={ path } sixMeals={ render6MealsItems } />
       </div>
     ));
     return info;

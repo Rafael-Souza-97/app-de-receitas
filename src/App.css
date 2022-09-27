@@ -66,3 +66,33 @@
     transform: rotate(-10deg);
   }
 }
+
+.carousel {
+  width: 326.4px;
+  height: 200px;
+  background-color: red;
+  overflow: scroll;
+  flex-wrap: nowrap;
+  display: flex;
+}
+
+.carousel-img-container {
+/* box-sizing: border-box; */
+/* position: absolute; */
+width: 163.2px;
+/* height: 149.12px; */
+/* left: 12.12px; */
+/* top: 898.1px; */
+/* background: #FFFFFF; */
+/* border: 0.517989px solid #B1B1B1; */
+/* border-radius: 5px; */
+}
+
+.carousel-img {
+/* position: absolute; */
+width: 163.35px;
+/* height: 134.85px; */
+/* left: 12px; */
+/* top: 898px; */
+/* border-radius: 5px 5px 0px 0px; */
+}
