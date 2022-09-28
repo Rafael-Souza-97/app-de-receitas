@@ -1,20 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import RecipesContext from '../context/RecipesContext';
 import Carousel from './Carousel';
-
-const SIX = 6;
 
 function RecipeDetails({ id, path, dataMeal,
   dataDrink, ingredientesAndMeasuresDrink, ingredientesAndMeasuresMeal }) {
-  const {
-    renderMeals12Cards,
-    renderDrinks12Cards,
-  } = useContext(RecipesContext);
-  // console.log(renderDrinks12Cards, renderMeals12Cards);
-  const render6MealsItems = renderMeals12Cards.slice(0, SIX);
-  const render6DrinksItems = renderDrinks12Cards.slice(0, SIX);
-  // console.log(render6MealsItems);
   const mapDrinks = () => {
     const info = dataDrink.map((element, index) => (
       <div key={ index }>
@@ -22,6 +11,7 @@ function RecipeDetails({ id, path, dataMeal,
           data-testid="recipe-photo"
           src={ element.strDrinkThumb }
           alt={ element.strDrink }
+          style={ { width: '300px' } }
         />
         <h1
           data-testid="recipe-title"
@@ -54,7 +44,7 @@ function RecipeDetails({ id, path, dataMeal,
             </li>
           ))}
         </ul>
-        <Carousel path={ path } sixDrinks={ render6DrinksItems } />
+        <Carousel path={ path } />
       </div>
     ));
     return info;
@@ -67,6 +57,7 @@ function RecipeDetails({ id, path, dataMeal,
           data-testid="recipe-photo"
           src={ element.strMealThumb }
           alt={ element.strMeal }
+          style={ { width: '300px' } }
         />
         <h1
           data-testid="recipe-title"
@@ -86,8 +77,8 @@ function RecipeDetails({ id, path, dataMeal,
           data-testid="video"
           title="video"
           src={ `https://www.youtube.com/embed/${element.strYoutube.split('=')[1]}` }
-          width="100%"
-          height="360"
+          width="300"
+          height="200"
         />
         <p
           data-testid="instructions"
@@ -107,7 +98,7 @@ function RecipeDetails({ id, path, dataMeal,
             </li>
           ))}
         </ul>
-        <Carousel path={ path } sixMeals={ render6MealsItems } />
+        <Carousel path={ path } />
       </div>
     ));
     return info;
