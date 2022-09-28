@@ -34,7 +34,7 @@ describe('Testa a página Drinks', () => {
     });
   });
 
-  it('Testa a rota "/drinks"', async () => {
+  it('Testa a rota "/drinks" e filtros', async () => {
     renderWithRouter((<App />));
 
     // Página drinks - "/drinks"
@@ -44,18 +44,50 @@ describe('Testa a página Drinks', () => {
       userEvent.click(drinkIcon);
       const cocktailButton = screen.getByTestId(/cocktail-category-filter/i);
       userEvent.click(cocktailButton);
-      const cocktailCards0 = screen.getByTestId(/0-recipe-card/i);
-      expect(cocktailCards0).toBeInTheDocument();
-      const allButton = screen.getByTestId(/All-category-filter/i);
-      userEvent.click(allButton);
+    });
+    const cocktailButton = screen.getByTestId(/cocktail-category-filter/i);
+    userEvent.click(cocktailButton);
+    userEvent.click(cocktailButton);
+
+    await waitFor(() => {
+      const amarettoSuor = screen.getByText('A True Amaretto Sour');
+      expect(amarettoSuor).toBeInTheDocument();
     });
   });
 
   it('Testa os filters', async () => {
     renderWithRouter(<App />);
     await waitFor(() => {
+      const cocktailCards0 = screen.getByTestId('0-recipe-card');
+      expect(cocktailCards0).toBeInTheDocument();
       const CocktailButton = screen.getByTestId('Cocktail-category-filter');
       userEvent.click(CocktailButton);
+    });
+  });
+
+  it('Testa se o filtro desabilita', async () => {
+    renderWithRouter(<App />);
+    await waitFor(() => {
+      const drinkCard1 = screen.getByText('GG');
+      expect(drinkCard1).toBeInTheDocument();
+      const allButton = screen.getByTestId(/All-category-filter/i);
+      userEvent.click(allButton);
+    });
+  });
+
+  it('Testa se é possível abrir um novo link ao clicar em um card', async () => {
+    renderWithRouter(<App />);
+    await waitFor(() => {
+      const cocktailCards1 = screen.getByTestId('1-recipe-card');
+      userEvent.click(cocktailCards1);
+    });
+  });
+
+  it('Testa se renderiza o recipe details ao clicar em um card', async () => {
+    renderWithRouter(<App />);
+    await waitFor(() => {
+      const instruções = screen.getByText('Instruções de preparo');
+      expect(instruções).toBeInTheDocument();
     });
   });
 });
