@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+
 import RecipesContext from '../context/RecipesContext';
 import { filterMealsAPI, filterDrinkAPI } from '../services/fetchs/filteredAPI';
 
-function SearchBar({ path }) {
+function SearchBar() {
   const {
     inputValue,
     filterSearch,
@@ -21,39 +21,35 @@ function SearchBar({ path }) {
     let endpoint = '';
     let recipes = [];
 
-    if (path === '/meals') {
-      if (inputValue.length > 1 && filterSearch === (firstLetter)) {
-        global.alert('Your search must have only 1 (one) character');
-      }
-      if (inputValue.length === 1 && filterSearch === (firstLetter)) {
-        endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
-        recipes = await filterMealsAPI(endpoint).meals;
-      }
-      if (filterSearch === 'Ingredient') {
-        endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
-        recipes = await filterMealsAPI(endpoint).meals;
-      }
-      if (filterSearch === 'Name') {
-        endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
-        recipes = await filterMealsAPI(endpoint).meals;
-      }
+    if (inputValue.length > 1 && filterSearch === (firstLetter)) {
+      global.alert('Your search must have only 1 (one) character');
     }
-    if (path === '/drinks') {
-      if (inputValue.length > 1 && filterSearch === (firstLetter)) {
-        global.alert('Your search must have only 1 (one) character');
-      }
-      if (inputValue.length === 1 && filterSearch === (firstLetter)) {
-        endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?f=${inputValue}`;
-        recipes = await filterDrinkAPI(endpoint).drinks;
-      }
-      if (filterSearch === 'Ingredient') {
-        endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputValue}`;
-        recipes = await filterDrinkAPI(endpoint).drinks;
-      }
-      if (filterSearch === 'Name') {
-        endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?s=${inputValue}`;
-        recipes = await filterDrinkAPI(endpoint).drinks;
-      }
+    if (inputValue.length === 1 && filterSearch === (firstLetter)) {
+      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
+      recipes = await filterMealsAPI(endpoint).meals;
+    }
+    if (filterSearch === 'Ingredient') {
+      endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
+      recipes = await filterMealsAPI(endpoint).meals;
+    }
+    if (filterSearch === 'Name') {
+      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
+      recipes = await filterMealsAPI(endpoint).meals;
+    }
+    if (inputValue.length > 1 && filterSearch === (firstLetter)) {
+      global.alert('Your search must have only 1 (one) character');
+    }
+    if (inputValue.length === 1 && filterSearch === (firstLetter)) {
+      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputValue}`;
+      recipes = await filterDrinkAPI(endpoint).drinks;
+    }
+    if (filterSearch === 'Ingredient') {
+      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputValue}`;
+      recipes = await filterDrinkAPI(endpoint).drinks;
+    }
+    if (filterSearch === 'Name') {
+      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`;
+      recipes = await filterDrinkAPI(endpoint).drinks;
     }
     setShowRecipes(recipes);
   };
@@ -96,7 +92,4 @@ function SearchBar({ path }) {
   );
 }
 
-SearchBar.propTypes = {
-  path: PropTypes.string.isRequired,
-};
 export default SearchBar;

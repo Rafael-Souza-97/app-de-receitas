@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-// import RecipesProvider from '../context/RecipesProvider';
 import RecipesContext from '../context/RecipesContext';
 
 function Header({ title }) {
@@ -49,7 +48,6 @@ function Header({ title }) {
             <SearchBar />
           </div>)}
         <h1 data-testid="page-title">{title}</h1>
-        {/* <SearchBar /> */}
       </header>
     </div>
   );
