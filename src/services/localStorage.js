@@ -6,3 +6,7 @@ export const addDrinksTokenLocalStorage = (token) => localStorage
 
 export const addEmailLocalStorage = (userEmail) => localStorage
   .setItem('user', JSON.stringify({ email: userEmail }));
+
+export const getEmailFromLocalStorage = (userEmail) => (
+  JSON.parse(localStorage.getItem(userEmail))
+);
