@@ -4,19 +4,19 @@ import { fetchMeals12Cards } from '../services/fetchs/fetch12Cards';
 const SIX = 6;
 
 function RecipesMeals() {
-  const [drinks, setDrink] = useState([]);
+  const [meals, setMeals] = useState([]);
 
   useEffect(() => {
     const fetch = async () => {
       const data = await fetchMeals12Cards();
       const dataSlice = data.slice(0, SIX);
-      setDrink(dataSlice);
+      setMeals(dataSlice);
     };
     fetch();
   }, []);
 
-  const mapSixDrinks = () => {
-    const items = drinks.map((drink, index) => (
+  const mapSixMeals = () => {
+    const items = meals.map((drink, index) => (
       <div
         className="carousel-img-container"
         key={ index }
@@ -36,7 +36,7 @@ function RecipesMeals() {
     return items;
   };
   return (
-    mapSixDrinks()
+    mapSixMeals()
   );
 }
 

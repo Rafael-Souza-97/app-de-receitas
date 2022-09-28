@@ -88,12 +88,12 @@ function RecipeDetails({ id, path, dataMeal,
         </p>
         <h2>Ingredientes</h2>
         <ul>
-          {ingredientesAndMeasuresMeal.map((x, i) => (
+          {ingredientesAndMeasuresMeal.map((el, i) => (
             <li
               key={ i }
               data-testid={ `${i}-ingredient-name-and-measure` }
             >
-              {x}
+              {el}
 
             </li>
           ))}
@@ -103,16 +103,15 @@ function RecipeDetails({ id, path, dataMeal,
     ));
     return info;
   };
-  const feemdeus = () => {
+  const renderization = () => {
     if (path.includes('meals')) {
       return mapMeals();
     } return mapDrinks();
   };
   return (
     <>
-      <div>aleluia</div>
       {id}
-      {feemdeus()}
+      {renderization()}
     </>
   );
 }
