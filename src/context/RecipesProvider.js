@@ -8,6 +8,9 @@ import {
   fetchDrinksCategories,
 } from '../services/fetchs/fetch12Cards';
 
+const NUMBER_ZERO = 0;
+const NUMBER_TWELVE = 12;
+
 function RecipesProvider({ children }) {
   const [userLogin, setUserLogin] = useState({
     email: '',
@@ -22,9 +25,9 @@ function RecipesProvider({ children }) {
   const [selectedCategoryMeals, setSelectedCategoryMeals] = useState('');
   const [selectedCategoryDrinks, setSelectedCategoryDrinks] = useState('');
   const [isFilterButtonSelected, setIsFilterButtonSelected] = useState(false);
-
-  const NUMBER_ZERO = 0;
-  const NUMBER_TWELVE = 12;
+  const [filterSearch, setFilterSearch] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const [showRecipes, setShowRecipes] = useState([]);
 
   useEffect(() => {
     const mealsData = async () => {
@@ -66,6 +69,9 @@ function RecipesProvider({ children }) {
     selectedCategoryMeals,
     selectedCategoryDrinks,
     isFilterButtonSelected,
+    inputValue,
+    showRecipes,
+    filterSearch,
     setUserLogin,
     setRenderMeals12Cards,
     setRenderDrinks12Cards,
@@ -76,6 +82,9 @@ function RecipesProvider({ children }) {
     setSelectedCategoryMeals,
     setSelectedCategoryDrinks,
     setIsFilterButtonSelected,
+    setInputValue,
+    setShowRecipes,
+    setFilterSearch,
   };
 
   return (
