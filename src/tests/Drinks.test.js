@@ -5,8 +5,8 @@ import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 
 describe('Testa a página Drinks', () => {
-  it('Testa a rota "/drinks"', async () => {
-    renderWithRouter(<App />);
+  it('Testa acesso a rota "/drinks"', async () => {
+    renderWithRouter((<App />));
 
     // Página de login - "/"
     const loginBtn = screen.getByTestId('login-submit-btn');
@@ -23,20 +23,39 @@ describe('Testa a página Drinks', () => {
     expect(loginBtn).not.toBeDisabled();
     userEvent.click(loginBtn);
 
-    // Página Meals - "/meals"
-    const footer = screen.getByTestId('footer');
-    expect(footer).toBeInTheDocument();
-    const drinkIcon = screen.getByTestId(/drinks-bottom-btn/i);
-    expect(drinkIcon).toBeInTheDocument();
-    userEvent.click(drinkIcon);
+    // Página meals - "/meals"
+    await waitFor(() => {
+      const breackfastButton = screen.getByTestId('Breakfast-category-filter');
+      userEvent.click(breackfastButton);
+      const mealCard1 = screen.getByTestId('0-recipe-card');
+      expect(mealCard1).toBeInTheDocument();
+      const allButton = screen.getByTestId('All-category-filter');
+      userEvent.click(allButton);
+    });
+  });
 
-    // Página Drinks - "/drinks"
-    const drinkCard1 = await screen.findByTestId('0-recipe-card');
-    const drinkCard12 = await screen.findByTestId('11-recipe-card');
+  it('Testa a rota "/drinks"', async () => {
+    renderWithRouter((<App />));
 
-    waitFor(() => {
-      expect(drinkCard1).toBeInTheDocument();
-      expect(drinkCard12).toBeInTheDocument();
+    // Página drinks - "/drinks"
+    await waitFor(() => {
+      const drinkIcon = screen.getByTestId(/drinks-bottom-btn/i);
+      expect(drinkIcon).toBeInTheDocument();
+      userEvent.click(drinkIcon);
+      const cocktailButton = screen.getByTestId(/cocktail-category-filter/i);
+      userEvent.click(cocktailButton);
+      const cocktailCards0 = screen.getByTestId(/0-recipe-card/i);
+      expect(cocktailCards0).toBeInTheDocument();
+      const allButton = screen.getByTestId(/All-category-filter/i);
+      userEvent.click(allButton);
+    });
+  });
+
+  it('Testa os filters', async () => {
+    renderWithRouter(<App />);
+    await waitFor(() => {
+      const CocktailButton = screen.getByTestId('Cocktail-category-filter');
+      userEvent.click(CocktailButton);
     });
   });
 });

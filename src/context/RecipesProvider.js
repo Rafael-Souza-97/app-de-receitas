@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactContext from './RecipesContext';
-import { fetchMeals12Cards, fetchDrinks12Cards } from '../services/fetchs/fetch12Cards';
-import { mealsCategories, drinksCategories } from '../services/fetchs/fetch5Categories';
+import {
+  fetchMeals12Cards,
+  fetchDrinks12Cards,
+  fetchMealsCategories,
+  fetchDrinksCategories,
+} from '../services/fetchs/fetch12Cards';
 
 function RecipesProvider({ children }) {
   const [userLogin, setUserLogin] = useState({
@@ -11,8 +15,16 @@ function RecipesProvider({ children }) {
   });
   const [renderMeals12Cards, setRenderMeals12Cards] = useState([]);
   const [renderDrinks12Cards, setRenderDrinks12Cards] = useState([]);
-  const [renderMeals5CategoriesButtons, setRenderMealsCategoriesButtons] = useState([]);
-  const [renderDrinks5CategoriesButtons, setRenderDrinksCategoriesButtons] = useState([]);
+  const [renderMealsCategoriesButtons, setRenderMealsCategoriesButtons] = useState([]);
+  const [renderDrinksCategoriesButtons, setRenderDrinksCategoriesButtons] = useState([]);
+  const [renderMealsCategories12Cards, setRenderMealsCategories12Cards] = useState([]);
+  const [renderDrinksCategories12Cards, setRenderDrinksCategories12Cards] = useState([]);
+  const [selectedCategoryMeals, setSelectedCategoryMeals] = useState('');
+  const [selectedCategoryDrinks, setSelectedCategoryDrinks] = useState('');
+  const [isFilterButtonSelected, setIsFilterButtonSelected] = useState(false);
+
+  const NUMBER_ZERO = 0;
+  const NUMBER_TWELVE = 12;
 
   useEffect(() => {
     const mealsData = async () => {
@@ -25,31 +37,45 @@ function RecipesProvider({ children }) {
       setRenderDrinks12Cards(cards);
     };
 
-    const mealsCategoriesButtons = async () => {
-      const categories = await mealsCategories();
-      setRenderMealsCategoriesButtons(categories);
+    const mealsCategoriesData = async (param) => {
+      const cards = await fetchMealsCategories(param);
+      const sliceMealsCategories = cards.slice(NUMBER_ZERO, NUMBER_TWELVE);
+      setRenderMealsCategories12Cards(sliceMealsCategories);
     };
 
-    const drinksCategoriesButtons = async () => {
-      const categories = await drinksCategories();
-      setRenderDrinksCategoriesButtons(categories);
+    const drinksCategoriesData = async (param) => {
+      const cards = await fetchDrinksCategories(param);
+      const sliceDrinksCategories = cards.slice(NUMBER_ZERO, NUMBER_TWELVE);
+      setRenderDrinksCategories12Cards(sliceDrinksCategories);
     };
 
     mealsData();
     drinksData();
-    mealsCategoriesButtons();
-    drinksCategoriesButtons();
-  }, []);
+    mealsCategoriesData(selectedCategoryMeals);
+    drinksCategoriesData(selectedCategoryDrinks);
+  }, [selectedCategoryMeals, selectedCategoryDrinks]);
 
   const contextValue = {
     userLogin,
     renderMeals12Cards,
     renderDrinks12Cards,
-    renderMeals5CategoriesButtons,
-    renderDrinks5CategoriesButtons,
+    renderMealsCategoriesButtons,
+    renderDrinksCategoriesButtons,
+    renderMealsCategories12Cards,
+    renderDrinksCategories12Cards,
+    selectedCategoryMeals,
+    selectedCategoryDrinks,
+    isFilterButtonSelected,
     setUserLogin,
     setRenderMeals12Cards,
     setRenderDrinks12Cards,
+    setRenderMealsCategoriesButtons,
+    setRenderDrinksCategoriesButtons,
+    setRenderMealsCategories12Cards,
+    setRenderDrinksCategories12Cards,
+    setSelectedCategoryMeals,
+    setSelectedCategoryDrinks,
+    setIsFilterButtonSelected,
   };
 
   return (

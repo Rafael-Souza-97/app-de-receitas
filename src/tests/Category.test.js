@@ -44,6 +44,13 @@ describe('Testa a página meals', () => {
       const filterButtonsQuantity = 5;
       expect(filterButtons).toHaveLength(filterButtonsQuantity);
       expect(filterButtons[3]).toHaveTextContent(/shake/i);
+
+      const cocktailFilterButtom = screen.getAllByTestId(/cocktail-category-filter/i);
+      expect(cocktailFilterButtom).toBeInTheDocument();
+      const cardABCTitle = screen.getByRole('heading', { level: 3, name: /abc/i });
+      expect(cardABCTitle).toBeInTheDocument();
+
+      userEvent.click(cocktailFilterButtom);
     });
   });
 });

@@ -1,10 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Cards from './Cards';
+import Category from './Category';
 
 function Recipes({ path }) {
   return (
-    <Cards path={ path } />
+    <div>
+      <Category path={ path } />
+      <Cards path={ path } />
+    </div>
   );
 }
 

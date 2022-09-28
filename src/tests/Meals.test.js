@@ -23,13 +23,34 @@ describe('Testa a página meals', () => {
     expect(loginBtn).not.toBeDisabled();
     userEvent.click(loginBtn);
 
-    // Página Meals - "/meals"
-    const mealCard1 = await screen.findByTestId('0-recipe-card');
-    const mealCard12 = await screen.findByTestId('11-recipe-card');
-
-    waitFor(() => {
+    // Página meals - "/meals"
+    await waitFor(() => {
+      const mealCard0Principal = screen.getByTestId('0-recipe-card');
+      expect(mealCard0Principal).toBeInTheDocument();
+      const breakfastButton = screen.getByTestId('Breakfast-category-filter');
+      userEvent.click(breakfastButton);
+      const mealCard1 = screen.getByTestId('0-recipe-card');
       expect(mealCard1).toBeInTheDocument();
-      expect(mealCard12).toBeInTheDocument();
+      userEvent.click(breakfastButton);
+      expect(mealCard1).toBeInTheDocument();
+      const allButton = screen.getByTestId('All-category-filter');
+      userEvent.click(allButton);
+    });
+  });
+
+  it('Testa os filters', async () => {
+    renderWithRouter(<App />);
+    await waitFor(() => {
+      const breakfastButton = screen.getByTestId('Breakfast-category-filter');
+      userEvent.click(breakfastButton);
+    });
+  });
+
+  it('Testa os cards pelas imagens', async () => {
+    renderWithRouter(<App />);
+    await waitFor(() => {
+      const cardsImages = screen.getAllByTestId(/card-img/i);
+      expect(cardsImages).toHaveLength(12);
     });
   });
 });
