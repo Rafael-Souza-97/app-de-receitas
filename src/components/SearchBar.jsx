@@ -27,6 +27,7 @@ function SearchBar() {
     if (inputValue.length === 1 && filterSearch === (firstLetter)) {
       endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
       recipes = await filterMealsAPI(endpoint).meals;
+      console.log(await filterMealsAPI(endpoint).meals);
     }
     if (filterSearch === 'Ingredient') {
       endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
