@@ -66,3 +66,21 @@
     transform: rotate(-10deg);
   }
 }
+
+.carousel {
+  display: flex;
+  gap: 10px;
+  overflow: scroll;
+  width: 326.4px;
+}
+
+.carousel-img-container {
+  background: white;
+  border: 0.518px solid gray;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.carousel-img {
+  height: 155px;
+}
