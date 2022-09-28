@@ -1,0 +1,16 @@
+.container-sm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  max-width: 20%;
+}
+
+.btn-outline-secondary {
+  margin: 5px;
+}
+
+.all {
+  background-color: rgb(235, 235, 235);
+}
