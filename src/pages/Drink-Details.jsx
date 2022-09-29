@@ -54,7 +54,6 @@ function DrinkDetails({ match: { path, params: { id } } }) {
       }));
     };
     // filterItems();
-    console.log('oi');
     ingredientesAndMeasure();
     getDrinkInfo();
     // feEmJesus();
