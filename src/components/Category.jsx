@@ -74,7 +74,6 @@ function Category({ path }) {
       { categories.map((category, index) => (
         <div
           key={ index }
-          data-testid={ `${index}-recipe-card` }
         >
           <button
             type="button"

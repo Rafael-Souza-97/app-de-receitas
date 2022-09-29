@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import '../styles/Cards.css';
 
@@ -30,10 +31,13 @@ function Cards({ path }) {
 
   return (
     <div>
-      {
-        renderCards.map((recipe, index) => (
+      { renderCards.map((recipe, index) => (
+        <Link
+          to={ path === '/meals' ? `/meals/${recipe.idMeal}`
+            : `/drinks/${recipe.idDrink}` }
+          key={ index }
+        >
           <div
-            key={ index }
             data-testid={ `${index}-recipe-card` }
             className="card-container"
           >
@@ -48,8 +52,8 @@ function Cards({ path }) {
               { path === '/meals' ? recipe.strMeal : recipe.strDrink }
             </h3>
           </div>
-        ))
-      }
+        </Link>
+      ))}
     </div>
   );
 }
