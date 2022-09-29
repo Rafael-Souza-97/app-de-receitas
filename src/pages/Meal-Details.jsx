@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import RecipeDetails from '../components/RecipeDetails';
 import Carousel from '../components/Carousel';
-import { fetchMealsDetails,
-  mealIngredientsAndMeasure } from '../services/fetchs/fetchItemsDetails';
+import { fetchMealsDetails } from '../services/fetchs/fetchItemsDetails';
 import { readLocalStorage,
   IN_PROGRESS_RECIPES,
   DONE_RECIPES } from '../services/localStorage';
@@ -16,16 +15,45 @@ function MealDetails({ match: { path, params: { id } } }) {
     ingredientes: [],
     measures: [],
   });
+  const [test, setTest] = useState({
+    ingredientes1: [],
+    measures1: [],
+  });
   const [mealsInProgress, setMealsInProgress] = useState(false);
   const [mealsDone, setMealsDone] = useState(false);
   const history = useHistory();
-  const { ingredientes, measures } = ingredientesMeal;
-  const mix = ingredientes.map((e, i) => `${e} - ${measures[i]}`);
+  const { ingredientes1, measures1 } = test;
+  const mix = ingredientes1.map((e, i) => `${e} - ${measures1[i]}`);
 
   useEffect(() => {
     const getMealInfo = async () => {
       const data = await fetchMealsDetails(id);
       setInfoMeals(data);
+
+      if (data !== null && data !== undefined) {
+        const xablau = [];
+        const filterIngrediente = Object.entries(data[0]);
+        const filtroEntries = filterIngrediente.filter((entrie) => entrie[0].includes('strIngredient'));
+        filtroEntries.forEach((filter) => xablau.push(filter[1]));
+        const ingrediantesFiltrados = xablau.filter((ingrediente) => ingrediente !== null && ingrediente !== '')
+        setTest((prevTest) => ({
+          ...prevTest,
+          ingredientes1: ingrediantesFiltrados
+        }))
+      }
+
+      if (data !== null && data !== undefined) {
+        const xablau = [];
+        const filterIngrediente = Object.entries(data[0]);
+        const filtroEntries = filterIngrediente.filter((entrie) => entrie[0].includes('strMeasure'));
+        filtroEntries.forEach((filter) => xablau.push(filter[1]));
+        const ingrediantesFiltrados = xablau.filter((ingrediente) => ingrediente !== null && ingrediente !== '' && ingrediente !== " ")
+        setTest((prevTest) => ({
+          ...prevTest,
+          measures1: ingrediantesFiltrados
+        }))
+      }
+
 
       const itemDone = readLocalStorage(DONE_RECIPES);
       if (itemDone !== null) {
@@ -40,21 +68,9 @@ function MealDetails({ match: { path, params: { id } } }) {
         setMealsInProgress(verifyItemInProgress);
       }
     };
-
-    const ingredientesAndMeasure = async () => {
-      const upDateIngredients = await mealIngredientsAndMeasure(id, 'strIngredient');
-      const upDateMeasures = await mealIngredientsAndMeasure(id, 'strMeasure');
-      setIngredientesMeal((prevIngredientes) => ({
-        ...prevIngredientes,
-        ingredientes: upDateIngredients,
-        measures: upDateMeasures,
-      }));
-    };
-    ingredientesAndMeasure();
     getMealInfo();
-    // feEmDeus();
   }, [id]);
-
+ 
   const redirectToPageInProgress = () => {
     history.push(`/meals/${id}/in-progress`);
   };
@@ -66,8 +82,8 @@ function MealDetails({ match: { path, params: { id } } }) {
         path={ path }
         dataMeal={ infoMeals }
         ingredientesAndMeasuresMeal={ mix }
-        filteredIngredienteMeal={ ingredientesMeal.ingredientes }
-        filteredMeasureMeal={ ingredientesMeal.measures }
+        filteredIngredienteMeal={ test.ingredientes1 }
+        filteredMeasureMeal={ test.measures1 }
       />
       <Carousel path={ path } />
       {mealsDone === false && (

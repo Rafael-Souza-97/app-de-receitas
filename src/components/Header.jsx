@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+// import RecipesProvider from '../context/RecipesProvider';
+import RecipesContext from '../context/RecipesContext';
 
 function Header({ title }) {
+  const { inputValue, setInputValue } = useContext(RecipesContext);
+
   const [searchOpen, setSearchOpen] = useState(false);
+
+  const handleChange = ({ target }) => {
+    setInputValue(target.value);
+  };
   return (
     <div>
       <header>
@@ -30,9 +38,18 @@ function Header({ title }) {
           />
         </button>
       )}
-        {searchOpen && <input data-testid="search-input" />}
+        {searchOpen
+        && (
+          <div>
+            <input
+              data-testid="search-input"
+              value={ inputValue }
+              onChange={ handleChange }
+            />
+            <SearchBar />
+          </div>)}
         <h1 data-testid="page-title">{title}</h1>
-        <SearchBar />
+        {/* <SearchBar /> */}
       </header>
     </div>
   );

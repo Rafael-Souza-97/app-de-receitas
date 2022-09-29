@@ -1,8 +1,60 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { favoriteMealCreator, favoriteDrinkCreator } from '../services/objCreator';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
-function RecipeDetails({ path, dataMeal,
-  dataDrink, ingredientesAndMeasuresDrink, ingredientesAndMeasuresMeal }) {
+const copy = require('clipboard-copy');
+
+function RecipeDetails({ id, path, dataMeal, dataDrink,
+  ingredientesAndMeasuresDrink, ingredientesAndMeasuresMeal }) {
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [copiedMsgVisibility, setCopiedMsgVisibility] = useState(false);
+
+  useEffect(() => {
+    const getFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (getFavoriteRecipes !== null) {
+      const filteredRecipes = getFavoriteRecipes.filter((recipe) => recipe.id === id);
+      if (filteredRecipes.length > 0) {
+        setIsFavorite(true);
+      }
+    }
+    if (!JSON.parse(localStorage.getItem('favoriteRecipes'))) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+  }, [id]);
+
+  useEffect(() => {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  }, [favoriteRecipes]);
+
+  const handleFavoriteMealBtn = () => {
+    setIsFavorite(!isFavorite);
+    if (isFavorite === false) {
+      setFavoriteRecipes([...favoriteRecipes, favoriteMealCreator(dataMeal[0])]);
+    } else {
+      setFavoriteRecipes(favoriteRecipes.filter((recipe) => recipe.id !== id));
+    }
+  };
+
+  const handleFavoriteDrinkBtn = () => {
+    setIsFavorite(!isFavorite);
+    if (isFavorite === false) {
+      setFavoriteRecipes([...favoriteRecipes, favoriteDrinkCreator(dataDrink[0])]);
+    } else {
+      setFavoriteRecipes(favoriteRecipes.filter((recipe) => recipe.id !== id));
+    }
+  };
+
+  const handleShareBtn = () => {
+    copy(window.location.href);
+    const showMsgTime = 3000;
+    setCopiedMsgVisibility(true);
+    setTimeout(() => setCopiedMsgVisibility(false), showMsgTime);
+  };
+
   const mapDrinks = () => {
     const info = dataDrink.map((element, index) => (
       <div key={ index }>
@@ -12,24 +64,43 @@ function RecipeDetails({ path, dataMeal,
           alt={ element.strDrink }
           style={ { width: '300px' } }
         />
-        <h1
-          data-testid="recipe-title"
+        <button
+          type="button"
+          onClick={ handleFavoriteDrinkBtn }
         >
+          {isFavorite ? (
+            <img
+              data-testid="favorite-btn"
+              src={ blackHeartIcon }
+              alt="Favorite Button"
+            />)
+            : (
+              <img
+                data-testid="favorite-btn"
+                src={ whiteHeartIcon }
+                alt="Favorite Button"
+              />
+            )}
+        </button>
+        <button
+          data-testid="share-btn"
+          type="button"
+          onClick={ handleShareBtn }
+        >
+          <img src={ shareIcon } alt="Share Button" />
+        </button>
+        {copiedMsgVisibility && (<p>Link copied!</p>)}
+        <h1 data-testid="recipe-title">
           {element.strDrink}
-
         </h1>
         <h2>Categoria</h2>
         <p>
           {element.strCategory}
-
         </p>
         <p data-testid="recipe-category">{element.strAlcoholic}</p>
         <h2>Instruções de preparo</h2>
-        <p
-          data-testid="instructions"
-        >
+        <p data-testid="instructions">
           {element.strInstructions}
-
         </p>
         <h2>Ingredientes</h2>
         <ul>
@@ -57,18 +128,43 @@ function RecipeDetails({ path, dataMeal,
           alt={ element.strMeal }
           style={ { width: '300px' } }
         />
-        <h1
-          data-testid="recipe-title"
+        <button
+          type="button"
+          onClick={ handleFavoriteMealBtn }
         >
+          {isFavorite ? (
+            <img
+              data-testid="favorite-btn"
+              src={ blackHeartIcon }
+              alt="Favorite Button"
+            />)
+            : (
+              <img
+                data-testid="favorite-btn"
+                src={ whiteHeartIcon }
+                alt="Favorite Button"
+              />
+            )}
+        </button>
+        <button
+          data-testid="share-btn"
+          type="button"
+          onClick={ handleShareBtn }
+        >
+          <img
+            src={ shareIcon }
+            alt="Share Button"
+          />
+        </button>
+        {copiedMsgVisibility && (
+          <div>Link copied!</div>
+        )}
+        <h1 data-testid="recipe-title">
           {element.strMeal}
-
         </h1>
         <h2>Categoria</h2>
-        <p
-          data-testid="recipe-category"
-        >
+        <p data-testid="recipe-category">
           {element.strCategory}
-
         </p>
         <h2>Instruções de preparo</h2>
         <iframe
@@ -78,11 +174,8 @@ function RecipeDetails({ path, dataMeal,
           width="300"
           height="200"
         />
-        <p
-          data-testid="instructions"
-        >
+        <p data-testid="instructions">
           {element.strInstructions}
-
         </p>
         <h2>Ingredientes</h2>
         <ul>
@@ -113,6 +206,7 @@ function RecipeDetails({ path, dataMeal,
 }
 
 RecipeDetails.propTypes = {
+  id: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
   dataDrink: PropTypes.arrayOf(PropTypes.object.isRequired),
   dataMeal: PropTypes.arrayOf(PropTypes.object.isRequired),
