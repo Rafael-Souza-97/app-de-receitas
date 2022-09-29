@@ -8,13 +8,11 @@ function ProfileButtons() {
 
   return (
     <div className="section-container">
-      {/* <div>
+      <div>
         <h3 data-testid="profile-email" className="email">
-          {
-            userEmail.email
-          }
+          User Email
         </h3>
-      </div> */}
+      </div>
 
       <div>
         <Link to="/done-recipes">
