@@ -1,37 +1,46 @@
 // import PropTypes, { objectOf, shape } from 'prop-types';
+import { string } from 'prop-types';
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import { filterMealsAPI, filterDrinkAPI } from '../services/fetchs/filteredAPI';
 
-function SearchBar() {
+function SearchBar({ pageTitle }) {
+  console.log(pageTitle);
+  const history = useHistory();
   const {
     inputValue,
     filterSearch,
     setFilterSearch,
     setShowRecipes,
+    setInputValue,
   } = useContext(RecipesContext);
 
-  const handleChange = ({ target }) => {
-    setFilterSearch(target.value);
+  const drinkValidate = pageTitle === 'Drinks';
+  const mealsValidadte = pageTitle === 'Meals';
+
+  const handleChange = ({ target }) => (
+    target.name === 'inputsearch'
+      ? setInputValue(target.value)
+      : setFilterSearch(target.value)
+  );
+
+  const redirectRecipes = (recipes) => {
+    console.log(recipes, 'ESSEAQUI');
+    if (!recipes.drinks || !recipes.meals) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+    if (recipes.drinks || recipes.meals) {
+      if (pageTitle === 'Drinks' && recipes.drinks.length === 1) {
+        console.log('ENTROU');
+        history.push(`/drinks/${recipes.drinks[0].idDrink}`);
+      }
+      if (pageTitle === 'Meals' && recipes.meals.length === 1) {
+        history.push(`/meals/${recipes.meals[0].idMeal}`);
+      }
+    }
   };
-
-  // const redirectRecipes = (recipes) => {
-  //   if (!recipes) {
-  //     global.alert('Sorry, we haven\'t found any recipes for these filters.');
-  //   }
-  //   if (recipes) {
-  //     if (recipes.length === 1 && title === 'Meals') {
-  //       history.push(`/meals/${recipes[0].idMeal}`);
-  //     }
-  //     if (recipes.length === 1 && title === 'Drinks') {
-  //       history.push(`/drinks/${recipes[0].idDrink}`);
-  //     }
-  //   }
-  // };
-
-  // Testar um switch case ou um if Else para rodar o filtro certo
-
-  const handleClick = async () => {
+  const drinkClick = async () => {
     const firstLetter = ('First letter');
     let endpoint = '';
     let recipes = [];
@@ -39,40 +48,76 @@ function SearchBar() {
     if (inputValue.length > 1 && filterSearch === (firstLetter)) {
       global.alert('Your search must have only 1 (one) character');
     }
-    if (inputValue.length === 1 && filterSearch === (firstLetter)) {
-      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
-      recipes = (await filterMealsAPI(endpoint)).meals;
-      // redirectRecipes(recipes);
-    }
-    if (filterSearch === 'Ingredient') {
-      endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
-      recipes = (await filterMealsAPI(endpoint)).meals;
-      // redirectRecipes(recipes);
-    }
-    if (filterSearch === 'Name') {
-      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
-      recipes = await filterMealsAPI(endpoint).meals;
-    }
-    if (inputValue.length === 1 && filterSearch === (firstLetter)) {
+    if (inputValue.length === 1 && filterSearch === (firstLetter)
+    && drinkValidate) {
       endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputValue}`;
-      recipes = (await filterDrinkAPI(endpoint)).drinks;
-      // redirectRecipes(recipes);
+      recipes = (await filterDrinkAPI(endpoint));
+      redirectRecipes(recipes);
+      console.log('if 4', recipes);
     }
-    if (filterSearch === 'Ingredient') {
+    if (filterSearch === 'Ingredient' && drinkValidate) {
       endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputValue}`;
-      recipes = (await filterDrinkAPI(endpoint)).drinks;
-      // redirectRecipes(recipes);
+      recipes = (await filterDrinkAPI(endpoint));
+      redirectRecipes(recipes);
+      console.log('if 5', recipes);
     }
-    if (filterSearch === 'Name') {
+    if (filterSearch === 'Name' && drinkValidate) {
       endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`;
-      recipes = (await filterDrinkAPI(endpoint)).drinks;
-      // redirectRecipes(recipes);
+      recipes = (await filterDrinkAPI(endpoint));
+      redirectRecipes(recipes);
+      console.log('if 6', recipes);
     }
     await setShowRecipes(recipes);
   };
 
+  const mealsClick = async () => {
+    const firstLetter = ('First letter');
+    let endpoint = '';
+    let recipes = [];
+
+    if (inputValue.length > 1 && filterSearch === (firstLetter)) {
+      global.alert('Your search must have only 1 (one) character');
+    }
+    if (inputValue.length === 1 && filterSearch === (firstLetter)
+    && mealsValidadte) {
+      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
+      recipes = (await filterMealsAPI(endpoint));
+      redirectRecipes(recipes);
+      console.log('if 1', recipes);
+    }
+    if (filterSearch === 'Ingredient' && mealsValidadte) {
+      endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
+      recipes = (await filterMealsAPI(endpoint));
+      redirectRecipes(recipes);
+      console.log('if 2', recipes);
+    }
+    if (filterSearch === 'Name' && mealsValidadte) {
+      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
+      recipes = await filterMealsAPI(endpoint);
+      redirectRecipes(recipes);
+      console.log('if 3', recipes);
+    }
+
+    await setShowRecipes(recipes);
+  };
+
+  const handleClick = async () => {
+    if (drinkValidate) {
+      await drinkClick();
+    }
+    if (mealsValidadte) {
+      await mealsClick();
+    }
+  };
+
   return (
     <div>
+      <input
+        data-testid="search-input"
+        value={ inputValue }
+        name="inputsearch"
+        onChange={ handleChange }
+      />
       <input
         type="radio"
         data-testid="ingredient-search-radio"
@@ -109,9 +154,8 @@ function SearchBar() {
   );
 }
 
-// SearchBar.propTypes = {
-//   title: PropTypes.node.isRequired,
-//   history: shape(objectOf(func, string, number)).isRequired,
-// };
+SearchBar.propTypes = {
+  pageTitle: string.isRequired,
+};
 
 export default SearchBar;
