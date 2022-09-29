@@ -51,12 +51,9 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
 
   const handleShareBtn = () => {
     copy(window.location.href);
-
     const showMsgTime = 3000;
     setCopiedMsgVisibility(true);
-    setTimeout(() => {
-      setCopiedMsgVisibility(false);
-    }, showMsgTime);
+    setTimeout(() => setCopiedMsgVisibility(false), showMsgTime);
   };
 
   const mapDrinks = () => {
@@ -91,19 +88,11 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
           type="button"
           onClick={ handleShareBtn }
         >
-          <img
-            src={ shareIcon }
-            alt="Share Button"
-          />
+          <img src={ shareIcon } alt="Share Button" />
         </button>
-        {copiedMsgVisibility && (
-          <div>Link copied!</div>
-        )}
-        <h1
-          data-testid="recipe-title"
-        >
+        {copiedMsgVisibility && (<p>Link copied!</p>)}
+        <h1 data-testid="recipe-title">
           {element.strDrink}
-
         </h1>
         <h2>Categoria</h2>
         <p>
@@ -111,9 +100,7 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
         </p>
         <p data-testid="recipe-category">{element.strAlcoholic}</p>
         <h2>Instruções de preparo</h2>
-        <p
-          data-testid="instructions"
-        >
+        <p data-testid="instructions">
           {element.strInstructions}
         </p>
         <h2>Ingredientes</h2>
