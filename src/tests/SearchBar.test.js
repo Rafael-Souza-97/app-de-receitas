@@ -60,9 +60,5 @@ describe('Testa o componente Search Bar', () => {
       },
     });
     expect(fetch).toHaveBeenCalledTimes(1);
-    // global.fetch = jest.fn().mockResolvedValue({
-    //   json: () => Promise.resolve(meals),
-    // });
-    // expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 });
