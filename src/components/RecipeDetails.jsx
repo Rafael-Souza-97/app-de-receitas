@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Carousel from './Carousel';
 
-function RecipeDetails({ id, path, dataMeal,
+function RecipeDetails({ path, dataMeal,
   dataDrink, ingredientesAndMeasuresDrink, ingredientesAndMeasuresMeal }) {
   const mapDrinks = () => {
     const info = dataDrink.map((element, index) => (
@@ -44,7 +43,6 @@ function RecipeDetails({ id, path, dataMeal,
             </li>
           ))}
         </ul>
-        <Carousel path={ path } />
       </div>
     ));
     return info;
@@ -98,7 +96,6 @@ function RecipeDetails({ id, path, dataMeal,
             </li>
           ))}
         </ul>
-        <Carousel path={ path } />
       </div>
     ));
     return info;
@@ -110,14 +107,12 @@ function RecipeDetails({ id, path, dataMeal,
   };
   return (
     <>
-      {id}
       {renderization()}
     </>
   );
 }
 
 RecipeDetails.propTypes = {
-  id: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
   dataDrink: PropTypes.arrayOf(PropTypes.object.isRequired),
   dataMeal: PropTypes.arrayOf(PropTypes.object.isRequired),
