@@ -1,11 +1,13 @@
 import React from 'react';
-import Footer from '../components/Footer';
 import Header from '../components/Header';
+import ProfileButtons from '../components/ProfileButtons';
+import Footer from '../components/Footer';
 
 function Profile() {
   return (
-    <div>
+    <div className="container-fluid">
       <Header title="Profile" />
+      <ProfileButtons />
       <Footer />
     </div>
   );
