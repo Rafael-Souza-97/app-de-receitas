@@ -15,7 +15,6 @@ function SearchBar() {
     setFilterSearch(target.value);
   };
 
-  // Testar um switch case ou um if Else para rodar o filtro certo
   const handleClick = async () => {
     const firstLetter = ('First letter');
     let endpoint = '';
