@@ -35,6 +35,8 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
     setIsFavorite(!isFavorite);
     if (isFavorite === false) {
       setFavoriteRecipes([...favoriteRecipes, favoriteMealCreator(dataMeal[0])]);
+    } else {
+      setFavoriteRecipes(favoriteRecipes.filter((recipe) => recipe.id !== id));
     }
   };
 
@@ -42,6 +44,8 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
     setIsFavorite(!isFavorite);
     if (isFavorite === false) {
       setFavoriteRecipes([...favoriteRecipes, favoriteDrinkCreator(dataDrink[0])]);
+    } else {
+      setFavoriteRecipes(favoriteRecipes.filter((recipe) => recipe.id !== id));
     }
   };
 
