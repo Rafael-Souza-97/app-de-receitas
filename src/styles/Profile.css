@@ -11,11 +11,15 @@
 }
 
 .btn-block {
-  margin: 2%;
-  width: 95%;
+  margin: 6% 5%;
+  width: 90%;
 }
 
 .email {
   display: flex;
   justify-content: center;
+}
+
+.email:hover {
+  color: gray;
 }
