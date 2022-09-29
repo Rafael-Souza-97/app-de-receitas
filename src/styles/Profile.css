@@ -1,0 +1,21 @@
+.section-container {
+  border-radius: 5px;
+  box-shadow: rgb(149 157 165 / 20%) 0.1px 8px 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+  margin-left: 5%;
+  margin-top: 25px;
+  width: 90%;
+}
+
+.btn-block {
+  margin: 2%;
+  width: 95%;
+}
+
+.email {
+  display: flex;
+  justify-content: center;
+}
