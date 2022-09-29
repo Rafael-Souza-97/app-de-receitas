@@ -14,7 +14,7 @@ function SearchBar() {
   const handleChange = ({ target }) => {
     setFilterSearch(target.value);
   };
-
+  // XABLAU
   const handleClick = async () => {
     const firstLetter = ('First letter');
     let endpoint = '';
