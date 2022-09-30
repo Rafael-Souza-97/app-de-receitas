@@ -105,7 +105,7 @@ function SearchBar({ pageTitle }) {
     if (inputValue.length === 1 && filterSearch === (firstLetter)) {
       if (inputValue === '') return [];
       endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
-      recipesMeals = (await filterMealsAPI(endPoint));
+      recipesMeals = await filterMealsAPI(endPoint);
       redirectRecipes(recipesMeals);
       setRecipesMealsSearch(recipesMeals.meals.slice(NUMBER_ZERO, NUMBER_TWELVE));
       setShowRecipes(true);
@@ -113,7 +113,7 @@ function SearchBar({ pageTitle }) {
     if (filterSearch === 'Ingredient') {
       if (inputValue === '') return [];
       endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
-      recipesMeals = (await filterMealsAPI(endPoint));
+      recipesMeals = await filterMealsAPI(endPoint);
       redirectRecipes(recipesMeals);
       setRecipesMealsSearch(recipesMeals.meals.slice(NUMBER_ZERO, NUMBER_TWELVE));
       setShowRecipes(true);
@@ -136,10 +136,12 @@ function SearchBar({ pageTitle }) {
     if (drinkValidate) {
       drinkClick();
       setInputValue('');
+      setShowRecipes(false);
     }
     if (mealsValidadte) {
       mealsClick();
       setInputValue('');
+      setShowRecipes(false);
     }
   };
 
