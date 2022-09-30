@@ -29,66 +29,55 @@ function SearchBar({ pageTitle }) {
   );
 
   const redirectRecipes = (recipes) => {
-    console.log(recipes);
-    // if (recipes.drinks === null || recipes.meals === null) {
-    if (!recipes) {
-      console.log('ALERTA Q NAO TEM NADA');
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    if (recipes === null) {
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
     if (recipes) {
-      if (pageTitle === 'Drinks' && recipes.drinks.length === 1) {
-        history.push(`/drinks/${recipes.drinks[0].idDrink}`);
+      if (pageTitle === 'Drinks' && recipes.length === 1) {
+        history.push(`/drinks/${recipes[0].idDrink}`);
       }
-      if (pageTitle === 'Meals' && recipes.meals.length === 1) {
-        history.push(`/meals/${recipes.meals[0].idMeal}`);
+      if (pageTitle === 'Meals' && recipes.length === 1) {
+        history.push(`/meals/${recipes[0].idMeal}`);
       }
+    }
+  };
+
+  const feEmDeus = async (endPoint) => {
+    const recipesDrinks = await filterDrinkAPI(endPoint);
+    redirectRecipes(recipesDrinks);
+    if (recipesDrinks !== null) {
+      setRecipesDrinksSearch(recipesDrinks.slice(NUMBER_ZERO, NUMBER_TWELVE));
+      setShowRecipes(true);
     }
   };
 
   const drinkClick = async () => {
     const firstLetter = 'First letter';
     let endPoint = '';
-    let recipesDrinks = [];
 
     if (inputValue.length > 1 && filterSearch === (firstLetter)) {
       return global.alert('Your search must have only 1 (one) character');
-      // console.log('ALERTA DE LETRA D');
     }
     if (inputValue.length === 1 && filterSearch === (firstLetter)) {
-      if (inputValue === '') return null;
       endPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputValue}`;
-      recipesDrinks = await filterDrinkAPI(endPoint);
-      redirectRecipes(recipesDrinks);
-      setRecipesDrinksSearch(recipesDrinks.drinks.slice(NUMBER_ZERO, NUMBER_TWELVE));
-      setShowRecipes(true);
+      feEmDeus(endPoint);
     }
     if (filterSearch === 'Ingredient' && drinkValidate) {
       console.log(inputValue, 'inputValue');
-      if (inputValue === '') return null;
-
-      // www.thecocktaildb.com/api/json/v1/1/search.php?i=
-      // www.thecocktaildb.com/api/json/v1/1/filter.php?i
-      // www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin
-      // www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka
-
       endPoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputValue}`;
-      console.log(endPoint, 'endPoint');
-      recipesDrinks = await filterDrinkAPI(endPoint);
-      console.log(recipesDrinks, 'recipesDrinks');
-      redirectRecipes(recipesDrinks);
-      setRecipesDrinksSearch(recipesDrinks.drinks.slice(NUMBER_ZERO, NUMBER_TWELVE));
-      setShowRecipes(true);
+      feEmDeus(endPoint);
     }
     if (filterSearch === 'Name') {
-      if (inputValue === '') return null;
       endPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`;
-      recipesDrinks = await filterDrinkAPI(endPoint);
-      redirectRecipes(recipesDrinks);
-      setRecipesDrinksSearch(recipesDrinks.drinks.slice(NUMBER_ZERO, NUMBER_TWELVE));
-      setShowRecipes(true);
+      feEmDeus(endPoint);
     }
-    if (pageTitle === 'Drinks' && recipesDrinks.drinks.length > 1) {
-      setRecipesDrinksSearch(recipesDrinks.drinks.slice(NUMBER_ZERO, NUMBER_TWELVE));
+  };
+
+  const feEmJesus = async (endPoint) => {
+    const recipesMeals = await filterMealsAPI(endPoint);
+    redirectRecipes(recipesMeals);
+    if (recipesMeals !== null) {
+      setRecipesMealsSearch(recipesMeals.slice(NUMBER_ZERO, NUMBER_TWELVE));
       setShowRecipes(true);
     }
   };
@@ -96,39 +85,25 @@ function SearchBar({ pageTitle }) {
   const mealsClick = async () => {
     const firstLetter = 'First letter';
     let endPoint = '';
-    let recipesMeals = [];
 
     if (inputValue.length > 1 && filterSearch === (firstLetter)) {
       return global.alert('Your search must have only 1 (one) character');
-      // console.log('ALERTA DE LETRA M');
     }
+
     if (inputValue.length === 1 && filterSearch === (firstLetter)) {
-      if (inputValue === '') return [];
+      if (inputValue === '') { return null; }
       endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
-      recipesMeals = await filterMealsAPI(endPoint);
-      redirectRecipes(recipesMeals);
-      setRecipesMealsSearch(recipesMeals.meals.slice(NUMBER_ZERO, NUMBER_TWELVE));
-      setShowRecipes(true);
+      feEmJesus(endPoint);
     }
     if (filterSearch === 'Ingredient') {
-      if (inputValue === '') return [];
+      if (inputValue === '') { return null; }
       endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
-      recipesMeals = await filterMealsAPI(endPoint);
-      redirectRecipes(recipesMeals);
-      setRecipesMealsSearch(recipesMeals.meals.slice(NUMBER_ZERO, NUMBER_TWELVE));
-      setShowRecipes(true);
+      feEmJesus(endPoint);
     }
     if (filterSearch === 'Name') {
-      if (inputValue === '') return [];
+      if (inputValue === '') { return null; }
       endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
-      recipesMeals = await filterMealsAPI(endPoint);
-      redirectRecipes(recipesMeals);
-      setRecipesMealsSearch(recipesMeals.meals.slice(NUMBER_ZERO, NUMBER_TWELVE));
-      setShowRecipes(true);
-    }
-    if (pageTitle === 'Meals' && recipesMeals.meals.length > 1) {
-      setRecipesMealsSearch(recipesMeals.meals.slice(NUMBER_ZERO, NUMBER_TWELVE));
-      setShowRecipes(true);
+      feEmJesus(endPoint);
     }
   };
 
