@@ -5,8 +5,11 @@ export async function filterMealsAPI(endpoint) {
 }
 
 export async function filterDrinkAPI(endpoint) {
-  const resp = await fetch(endpoint);
-  const data = await resp.json();
+  if (endpoint === '' || endpoint === null) {
+    return [];
+  }
+  const response = await fetch(endpoint);
+  const data = await response.json();
   console.log(data, 'API');
   return data;
 }

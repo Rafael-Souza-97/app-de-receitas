@@ -30,11 +30,12 @@ function SearchBar({ pageTitle }) {
 
   const redirectRecipes = (recipes) => {
     console.log(recipes);
-    if (recipes.drinks === null || recipes.meals === null) {
+    // if (recipes.drinks === null || recipes.meals === null) {
+    if (!recipes) {
       console.log('ALERTA Q NAO TEM NADA');
-      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
-    if (recipes.drinks || recipes.meals) {
+    if (recipes) {
       if (pageTitle === 'Drinks' && recipes.drinks.length === 1) {
         history.push(`/drinks/${recipes.drinks[0].idDrink}`);
       }
@@ -45,33 +46,43 @@ function SearchBar({ pageTitle }) {
   };
 
   const drinkClick = async () => {
-    const firstLetter = ('First letter');
-    let endpoint = '';
+    const firstLetter = 'First letter';
+    let endPoint = '';
     let recipesDrinks = [];
 
     if (inputValue.length > 1 && filterSearch === (firstLetter)) {
       return global.alert('Your search must have only 1 (one) character');
-}
-    if (inputValue.length === 1 && filterSearch === (firstLetter) && drinkValidate) {
-      if (inputValue === '') return [];
-      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputValue}`;
-      recipesDrinks = (await filterDrinkAPI(endpoint));
+      // console.log('ALERTA DE LETRA D');
+    }
+    if (inputValue.length === 1 && filterSearch === (firstLetter)) {
+      if (inputValue === '') return null;
+      endPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputValue}`;
+      recipesDrinks = await filterDrinkAPI(endPoint);
       redirectRecipes(recipesDrinks);
       setRecipesDrinksSearch(recipesDrinks.drinks.slice(NUMBER_ZERO, NUMBER_TWELVE));
       setShowRecipes(true);
     }
     if (filterSearch === 'Ingredient' && drinkValidate) {
-      if (inputValue === '') return [];
-      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputValue}`;
-      recipesDrinks = (await filterDrinkAPI(endpoint));
+      console.log(inputValue, 'inputValue');
+      if (inputValue === '') return null;
+
+      // www.thecocktaildb.com/api/json/v1/1/search.php?i=
+      // www.thecocktaildb.com/api/json/v1/1/filter.php?i
+      // www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin
+      // www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka
+
+      endPoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputValue}`;
+      console.log(endPoint, 'endPoint');
+      recipesDrinks = await filterDrinkAPI(endPoint);
+      console.log(recipesDrinks, 'recipesDrinks');
       redirectRecipes(recipesDrinks);
       setRecipesDrinksSearch(recipesDrinks.drinks.slice(NUMBER_ZERO, NUMBER_TWELVE));
       setShowRecipes(true);
     }
-    if (filterSearch === 'Name' && drinkValidate) {
-      if (inputValue === '') return [];
-      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`;
-      recipesDrinks = (await filterDrinkAPI(endpoint));
+    if (filterSearch === 'Name') {
+      if (inputValue === '') return null;
+      endPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`;
+      recipesDrinks = await filterDrinkAPI(endPoint);
       redirectRecipes(recipesDrinks);
       setRecipesDrinksSearch(recipesDrinks.drinks.slice(NUMBER_ZERO, NUMBER_TWELVE));
       setShowRecipes(true);
@@ -83,34 +94,34 @@ function SearchBar({ pageTitle }) {
   };
 
   const mealsClick = async () => {
-    const firstLetter = ('First letter');
-    let endpoint = '';
+    const firstLetter = 'First letter';
+    let endPoint = '';
     let recipesMeals = [];
 
     if (inputValue.length > 1 && filterSearch === (firstLetter)) {
       return global.alert('Your search must have only 1 (one) character');
+      // console.log('ALERTA DE LETRA M');
     }
-    if (inputValue.length === 1 && filterSearch === (firstLetter)
-    && mealsValidadte) {
+    if (inputValue.length === 1 && filterSearch === (firstLetter)) {
       if (inputValue === '') return [];
-      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
-      recipesMeals = (await filterMealsAPI(endpoint));
+      endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
+      recipesMeals = (await filterMealsAPI(endPoint));
       redirectRecipes(recipesMeals);
       setRecipesMealsSearch(recipesMeals.meals.slice(NUMBER_ZERO, NUMBER_TWELVE));
       setShowRecipes(true);
     }
-    if (filterSearch === 'Ingredient' && mealsValidadte) {
+    if (filterSearch === 'Ingredient') {
       if (inputValue === '') return [];
-      endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
-      recipesMeals = (await filterMealsAPI(endpoint));
+      endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
+      recipesMeals = (await filterMealsAPI(endPoint));
       redirectRecipes(recipesMeals);
       setRecipesMealsSearch(recipesMeals.meals.slice(NUMBER_ZERO, NUMBER_TWELVE));
       setShowRecipes(true);
     }
-    if (filterSearch === 'Name' && mealsValidadte) {
+    if (filterSearch === 'Name') {
       if (inputValue === '') return [];
-      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
-      recipesMeals = await filterMealsAPI(endpoint);
+      endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
+      recipesMeals = await filterMealsAPI(endPoint);
       redirectRecipes(recipesMeals);
       setRecipesMealsSearch(recipesMeals.meals.slice(NUMBER_ZERO, NUMBER_TWELVE));
       setShowRecipes(true);
