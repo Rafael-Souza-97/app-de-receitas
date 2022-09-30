@@ -17,12 +17,12 @@
 
 .card-image {
   border-radius: 10px;
-  margin: 10px;
+  margin: 15px;
   width: 200px;
 }
 
 .card-title {
   color: black;
-  margin: 15px;
+  margin: 10px;
   text-decoration: none;
 }

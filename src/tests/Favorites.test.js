@@ -6,8 +6,8 @@ import App from '../App';
 
 const USER_EMAIL = 'email@email.com';
 
-describe('Testa a página Profile', () => {
-  it('Testa a rota "/profiles"', async () => {
+describe('Testa a página Favorites', () => {
+  it('Testa a rota "/favorite-recipes"', async () => {
     renderWithRouter((<App />));
 
     // Página de login - "/"
@@ -29,20 +29,7 @@ describe('Testa a página Profile', () => {
     expect(profileLink).toBeInTheDocument();
     userEvent.click(profileLink);
 
-    const userEmail = screen.getByTestId('profile-email');
-    expect(userEmail).toBeInTheDocument();
-    // const userEmailText = screen.getByText(USER_EMAIL);
-    // expect(userEmailText).toBeInTheDocument();
-
-    const doneRecipesButton = screen.getByTestId('profile-done-btn');
-    expect(doneRecipesButton).toBeInTheDocument();
-
     const favoritesRecipesButton = screen.getByTestId('profile-favorite-btn');
     expect(favoritesRecipesButton).toBeInTheDocument();
-
-    const logoutButton = screen.getByTestId('profile-logout-btn');
-    expect(logoutButton).toBeInTheDocument();
-
-    userEvent.click(logoutButton);
   });
 });

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { getEmailFromLocalStorage } from '../services/localStorage';
+// import { readLocalStorage } from '../services/localStorage';
 import '../styles/Profile.css';
 
 function ProfileButtons() {
-  // const userEmail = getEmailFromLocalStorage('user');
+  // const userEmail = readLocalStorage('user');
 
   return (
     <div className="section-container">
