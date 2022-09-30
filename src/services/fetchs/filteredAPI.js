@@ -7,5 +7,6 @@ export async function filterMealsAPI(endpoint) {
 export async function filterDrinkAPI(endpoint) {
   const resp = await fetch(endpoint);
   const data = await resp.json();
+  console.log(data, 'API');
   return data;
 }

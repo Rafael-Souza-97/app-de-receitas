@@ -5,8 +5,9 @@ import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import { filterMealsAPI, filterDrinkAPI } from '../services/fetchs/filteredAPI';
 
+const NUMBER_ZERO = 0;
+const NUMBER_TWELVE = 12;
 function SearchBar({ pageTitle }) {
-  console.log(pageTitle);
   const history = useHistory();
   const {
     inputValue,
@@ -14,6 +15,8 @@ function SearchBar({ pageTitle }) {
     setFilterSearch,
     setShowRecipes,
     setInputValue,
+    setRecipesDrinksSearch,
+    setRecipesMealsSearch,
   } = useContext(RecipesContext);
 
   const drinkValidate = pageTitle === 'Drinks';
@@ -26,13 +29,13 @@ function SearchBar({ pageTitle }) {
   );
 
   const redirectRecipes = (recipes) => {
-    console.log(recipes, 'ESSEAQUI');
-    if (!recipes.drinks || !recipes.meals) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    console.log(recipes);
+    if (recipes.drinks === null || recipes.meals === null) {
+      console.log('ALERTA Q NAO TEM NADA');
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
     if (recipes.drinks || recipes.meals) {
       if (pageTitle === 'Drinks' && recipes.drinks.length === 1) {
-        console.log('ENTROU');
         history.push(`/drinks/${recipes.drinks[0].idDrink}`);
       }
       if (pageTitle === 'Meals' && recipes.meals.length === 1) {
@@ -40,73 +43,92 @@ function SearchBar({ pageTitle }) {
       }
     }
   };
+
   const drinkClick = async () => {
     const firstLetter = ('First letter');
     let endpoint = '';
-    let recipes = [];
+    let recipesDrinks = [];
 
     if (inputValue.length > 1 && filterSearch === (firstLetter)) {
-      global.alert('Your search must have only 1 (one) character');
-    }
-    if (inputValue.length === 1 && filterSearch === (firstLetter)
-    && drinkValidate) {
+      return global.alert('Your search must have only 1 (one) character');
+}
+    if (inputValue.length === 1 && filterSearch === (firstLetter) && drinkValidate) {
+      if (inputValue === '') return [];
       endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputValue}`;
-      recipes = (await filterDrinkAPI(endpoint));
-      redirectRecipes(recipes);
-      console.log('if 4', recipes);
+      recipesDrinks = (await filterDrinkAPI(endpoint));
+      redirectRecipes(recipesDrinks);
+      setRecipesDrinksSearch(recipesDrinks.drinks.slice(NUMBER_ZERO, NUMBER_TWELVE));
+      setShowRecipes(true);
     }
     if (filterSearch === 'Ingredient' && drinkValidate) {
+      if (inputValue === '') return [];
       endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputValue}`;
-      recipes = (await filterDrinkAPI(endpoint));
-      redirectRecipes(recipes);
-      console.log('if 5', recipes);
+      recipesDrinks = (await filterDrinkAPI(endpoint));
+      redirectRecipes(recipesDrinks);
+      setRecipesDrinksSearch(recipesDrinks.drinks.slice(NUMBER_ZERO, NUMBER_TWELVE));
+      setShowRecipes(true);
     }
     if (filterSearch === 'Name' && drinkValidate) {
+      if (inputValue === '') return [];
       endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`;
-      recipes = (await filterDrinkAPI(endpoint));
-      redirectRecipes(recipes);
-      console.log('if 6', recipes);
+      recipesDrinks = (await filterDrinkAPI(endpoint));
+      redirectRecipes(recipesDrinks);
+      setRecipesDrinksSearch(recipesDrinks.drinks.slice(NUMBER_ZERO, NUMBER_TWELVE));
+      setShowRecipes(true);
     }
-    await setShowRecipes(recipes);
+    if (pageTitle === 'Drinks' && recipesDrinks.drinks.length > 1) {
+      setRecipesDrinksSearch(recipesDrinks.drinks.slice(NUMBER_ZERO, NUMBER_TWELVE));
+      setShowRecipes(true);
+    }
   };
 
   const mealsClick = async () => {
     const firstLetter = ('First letter');
     let endpoint = '';
-    let recipes = [];
+    let recipesMeals = [];
 
     if (inputValue.length > 1 && filterSearch === (firstLetter)) {
-      global.alert('Your search must have only 1 (one) character');
+      return global.alert('Your search must have only 1 (one) character');
     }
     if (inputValue.length === 1 && filterSearch === (firstLetter)
     && mealsValidadte) {
+      if (inputValue === '') return [];
       endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
-      recipes = (await filterMealsAPI(endpoint));
-      redirectRecipes(recipes);
-      console.log('if 1', recipes);
+      recipesMeals = (await filterMealsAPI(endpoint));
+      redirectRecipes(recipesMeals);
+      setRecipesMealsSearch(recipesMeals.meals.slice(NUMBER_ZERO, NUMBER_TWELVE));
+      setShowRecipes(true);
     }
     if (filterSearch === 'Ingredient' && mealsValidadte) {
+      if (inputValue === '') return [];
       endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
-      recipes = (await filterMealsAPI(endpoint));
-      redirectRecipes(recipes);
-      console.log('if 2', recipes);
+      recipesMeals = (await filterMealsAPI(endpoint));
+      redirectRecipes(recipesMeals);
+      setRecipesMealsSearch(recipesMeals.meals.slice(NUMBER_ZERO, NUMBER_TWELVE));
+      setShowRecipes(true);
     }
     if (filterSearch === 'Name' && mealsValidadte) {
+      if (inputValue === '') return [];
       endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
-      recipes = await filterMealsAPI(endpoint);
-      redirectRecipes(recipes);
-      console.log('if 3', recipes);
+      recipesMeals = await filterMealsAPI(endpoint);
+      redirectRecipes(recipesMeals);
+      setRecipesMealsSearch(recipesMeals.meals.slice(NUMBER_ZERO, NUMBER_TWELVE));
+      setShowRecipes(true);
     }
-
-    await setShowRecipes(recipes);
+    if (pageTitle === 'Meals' && recipesMeals.meals.length > 1) {
+      setRecipesMealsSearch(recipesMeals.meals.slice(NUMBER_ZERO, NUMBER_TWELVE));
+      setShowRecipes(true);
+    }
   };
 
-  const handleClick = async () => {
+  const handleClick = () => {
     if (drinkValidate) {
-      await drinkClick();
+      drinkClick();
+      setInputValue('');
     }
     if (mealsValidadte) {
-      await mealsClick();
+      mealsClick();
+      setInputValue('');
     }
   };
 

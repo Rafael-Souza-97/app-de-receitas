@@ -12,6 +12,9 @@ function Cards({ path }) {
     selectedCategoryDrinks,
     renderMealsCategories12Cards,
     renderDrinksCategories12Cards,
+    showRecipes,
+    recipesMealsSearch,
+    recipesDrinksSearch,
   } = useContext(RecipesContext);
 
   let renderCards = renderMeals12Cards;
@@ -27,6 +30,12 @@ function Cards({ path }) {
   }
   if (path === '/drinks' && selectedCategoryDrinks !== '') {
     renderCards = renderDrinksCategories12Cards;
+  }
+  if (path === '/meals' && showRecipes) {
+    renderCards = recipesMealsSearch;
+  }
+  if (path === '/drinks' && showRecipes) {
+    renderCards = recipesDrinksSearch;
   }
 
   return (

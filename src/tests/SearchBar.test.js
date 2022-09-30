@@ -31,8 +31,8 @@ describe('Testa o componente Search Bar', () => {
     const inputValueFilter = screen.getByTestId('search-input');
     userEvent.type(inputValueFilter, 'aa');
 
-    const firstLbutton = screen.getByTestId('first-letter-search-radio');
-    userEvent.click(firstLbutton);
+    const firstLetterbutton = screen.getByTestId('first-letter-search-radio');
+    userEvent.click(firstLetterbutton);
 
     const execSearchBtn = screen.getByTestId('exec-search-btn');
     userEvent.click(execSearchBtn);
@@ -42,12 +42,12 @@ describe('Testa o componente Search Bar', () => {
   });
 
   it('Testa se filtra com a primeira letra', async () => {
-    enderWithRouter(<App />);
+    renderWithRouter(<App />);
     const inputValueFilter = screen.getByTestId('search-input');
     userEvent.type(inputValueFilter, 'a');
 
-    const firstLbutton = screen.getByTestId('first-letter-search-radio');
-    userEvent.click(firstLbutton);
+    const firstLetterbutton = screen.getByTestId('first-letter-search-radio');
+    userEvent.click(firstLetterbutton);
 
     const execSearchBtn = screen.getByTestId('exec-search-btn');
     userEvent.click(execSearchBtn);
@@ -61,4 +61,16 @@ describe('Testa o componente Search Bar', () => {
     });
     expect(fetch).toHaveBeenCalledTimes(1);
   });
+
+  // it('Testa se filtra pelo nome', async () => {
+  //   renderWithRouter(<App />);
+  //   const inputValueFilter = screen.getByTestId('search-input');
+  //   userEvent.type(inputValueFilter, 'Corba');
+
+  //   const nameSearchButton = screen.getByTestId('name-search-radio');
+  //   userEvent.click(nameSearchButton);
+
+  //   const execSearchBtn = screen.getByTestId('exec-search-btn');
+  //   userEvent.click(execSearchBtn);
+  // });
 });
