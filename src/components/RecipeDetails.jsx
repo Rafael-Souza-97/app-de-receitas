@@ -63,7 +63,7 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
           data-testid="recipe-photo"
           src={ element.strDrinkThumb }
           alt={ element.strDrink }
-          style={ { width: '300px' } }
+          style={ { width: '100px' } }
         />
         <button
           type="button"
@@ -127,7 +127,7 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
           data-testid="recipe-photo"
           src={ element.strMealThumb }
           alt={ element.strMeal }
-          style={ { width: '300px' } }
+          style={ { width: '100px' } }
         />
         <button
           type="button"
