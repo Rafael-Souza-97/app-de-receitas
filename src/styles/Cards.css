@@ -16,10 +16,13 @@
 }
 
 .card-image {
+  border-radius: 10px;
   margin: 10px;
   width: 200px;
 }
 
 .card-title {
+  color: black;
   margin: 15px;
+  text-decoration: none;
 }

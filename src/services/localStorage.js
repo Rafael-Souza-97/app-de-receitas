@@ -12,11 +12,9 @@ export const addEmailLocalStorage = (userEmail) => localStorage
 
 export const readLocalStorage = (key) => JSON.parse(localStorage.getItem(key));
 
-// export const addDrinkInProgressToLocalStoraeg = (recipe) => localStorage
-//   .setItem('inProgressRecipes', JSON.stringify({ drinks: recipe }));
-
-// export const addMealInProgressToLocalStoraeg = (recipe) => localStorage
-//   .setItem('inProgressRecipes', JSON.stringify({ meal: recipe }));
-
-// export const addItemlInProgressToLocalStoraeg = (name, recipe) => localStorage
-//   .setItem('inProgressRecipes', JSON.stringify({ [name]: recipe }));
+export const getEmailFromLocalStorage = (userEmail) => {
+  if (localStorage.getItem(userEmail) === null) {
+    return localStorage.setItem(userEmail, JSON.stringify({}));
+  }
+  return JSON.parse(localStorage.getItem(userEmail));
+};

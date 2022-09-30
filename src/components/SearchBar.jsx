@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-// import PropTypes from 'prop-types';
+
 import RecipesContext from '../context/RecipesContext';
 import { filterMealsAPI, filterDrinkAPI } from '../services/fetchs/filteredAPI';
 
-// function SearchBar({ path }) {
 function SearchBar() {
   const {
     inputValue,
@@ -15,20 +14,19 @@ function SearchBar() {
   const handleChange = ({ target }) => {
     setFilterSearch(target.value);
   };
-
-  // Testar um switch case ou um if Else para rodar o filtro certo
+  // XABLAU
   const handleClick = async () => {
     const firstLetter = ('First letter');
     let endpoint = '';
     let recipes = [];
 
-    // if (path === '/meals') {
     if (inputValue.length > 1 && filterSearch === (firstLetter)) {
       global.alert('Your search must have only 1 (one) character');
     }
     if (inputValue.length === 1 && filterSearch === (firstLetter)) {
       endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
       recipes = await filterMealsAPI(endpoint).meals;
+      console.log(await filterMealsAPI(endpoint).meals);
     }
     if (filterSearch === 'Ingredient') {
       endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
@@ -37,14 +35,12 @@ function SearchBar() {
     if (filterSearch === 'Name') {
       endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
       recipes = await filterMealsAPI(endpoint).meals;
-      // }
     }
-    // if (path === '/drinks') {
     if (inputValue.length > 1 && filterSearch === (firstLetter)) {
       global.alert('Your search must have only 1 (one) character');
     }
     if (inputValue.length === 1 && filterSearch === (firstLetter)) {
-      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?f=${inputValue}`;
+      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputValue}`;
       recipes = await filterDrinkAPI(endpoint).drinks;
     }
     if (filterSearch === 'Ingredient') {
@@ -52,10 +48,9 @@ function SearchBar() {
       recipes = await filterDrinkAPI(endpoint).drinks;
     }
     if (filterSearch === 'Name') {
-      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?s=${inputValue}`;
+      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`;
       recipes = await filterDrinkAPI(endpoint).drinks;
     }
-    // }
     setShowRecipes(recipes);
   };
 
@@ -97,7 +92,4 @@ function SearchBar() {
   );
 }
 
-// SearchBar.propTypes = {
-//   path: PropTypes.string.isRequired,
-// };
 export default SearchBar;

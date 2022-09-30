@@ -17,6 +17,7 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
     const getFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (getFavoriteRecipes !== null) {
       const filteredRecipes = getFavoriteRecipes.filter((recipe) => recipe.id === id);
+      setFavoriteRecipes(getFavoriteRecipes);
       if (filteredRecipes.length > 0) {
         setIsFavorite(true);
       }
