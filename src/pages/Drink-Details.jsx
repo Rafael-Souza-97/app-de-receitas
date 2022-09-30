@@ -10,47 +10,51 @@ import { readLocalStorage,
 
 function DrinkDetails({ match: { path, params: { id } } }) {
   const [infoDrinks, setInfoDrinks] = useState([]);
+  const [ingredientAndMeasure, setIngredientAndMeasure] = useState({
+    ingredients: [],
+    measures: [],
+  });
   const [drinksInProgress, setDrinksInProgress] = useState(false);
   const [drinksDone, setDrinksDone] = useState(false);
-  const [test, setTest] = useState({
-    ingredientes1: [],
-    measures1: [],
-  });
   const history = useHistory();
 
-  const { ingredientes1, measures1 } = test;
-  const mix = ingredientes1.map((e, i) => `${e} - ${measures1[i]}`);
+  const { ingredients, measures } = ingredientAndMeasure;
+  const mix = ingredients.map((e, i) => `${e} - ${measures[i]}`);
 
   useEffect(() => {
     const getDrinkInfo = async () => {
       const data = await fetchDrinksDetails(id);
       setInfoDrinks(data);
+
       if (data !== null && data !== undefined) {
-        const xablau = [];
-        const filterIngrediente = Object.entries(data[0]);
-        const filtroEntries = filterIngrediente
+        const arrayIngredients = [];
+        const getEntries = Object.entries(data[0]);
+        const filterEntries = getEntries
           .filter((entrie) => entrie[0].includes('strIngredient'));
-        filtroEntries
-          .forEach((filter) => xablau.push(filter[1]));
-        const ingrediantesFiltrados = xablau.filter((ingrediente) => ingrediente !== null && ingrediente !== '')
-        setTest((prevTest) => ({
+        filterEntries.forEach((filter) => arrayIngredients.push(filter[1]));
+        const ingredientsFiltered = arrayIngredients
+          .filter((ingrediente) => ingrediente !== null && ingrediente !== '');
+        setIngredientAndMeasure((prevTest) => ({
           ...prevTest,
-          ingredientes1: ingrediantesFiltrados
-        }))
+          ingredients: ingredientsFiltered,
+        }));
       }
 
       if (data !== null && data !== undefined) {
-        const xablau = [];
-        const filterIngrediente = Object.entries(data[0]);
-        const filtroEntries = filterIngrediente.filter((entrie) => entrie[0].includes('strMeasure'));
-        filtroEntries.forEach((filter) => xablau.push(filter[1]));
-        const ingrediantesFiltrados = xablau.filter((ingrediente) => ingrediente !== null && ingrediente !== '')
-        setTest((prevTest) => ({
+        const arrayMeasures = [];
+        const getEntries = Object.entries(data[0]);
+        const filterEntries = getEntries
+          .filter((entrie) => entrie[0].includes('strMeasure'));
+        filterEntries.forEach((filter) => arrayMeasures.push(filter[1]));
+        const measuresFiltered = arrayMeasures
+          .filter((ingrediente) => ingrediente !== null
+          && ingrediente !== '' && ingrediente !== ' ');
+        setIngredientAndMeasure((prevTest) => ({
           ...prevTest,
-          measures1: ingrediantesFiltrados
-        }))
+          measures: measuresFiltered,
+        }));
       }
-    
+
       const itemDone = readLocalStorage(DONE_RECIPES);
       if (itemDone !== null) {
         const isItemDone = itemDone.some(({ id: idDrink }) => idDrink === id);
@@ -73,14 +77,14 @@ function DrinkDetails({ match: { path, params: { id } } }) {
 
   return (
     <>
-      <div>Drink-Details</div>
+      <h1>Informações da Receita</h1>
       <RecipeDetails
         id={ id }
         path={ path }
         dataDrink={ infoDrinks }
         ingredientesAndMeasuresDrink={ mix }
-        filteredIngredienteDrink={ test.ingredientes1 }
-        filteredMeasureDrink={ test.measures1 }
+        filteredIngredienteDrink={ ingredientAndMeasure.ingredients }
+        filteredMeasureDrink={ ingredientAndMeasure.measures }
       />
       <Carousel path={ path } />
       {drinksDone === false && (

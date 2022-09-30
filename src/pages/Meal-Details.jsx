@@ -10,20 +10,16 @@ import { readLocalStorage,
 
 function MealDetails({ match: { path, params: { id } } }) {
   const [infoMeals, setInfoMeals] = useState([]);
-  // console.log(infoMeals);
-  const [ingredientesMeal, setIngredientesMeal] = useState({
-    ingredientes: [],
+  const [ingredientAndMeasure, setIngredientAndMeasure] = useState({
+    ingredients: [],
     measures: [],
-  });
-  const [test, setTest] = useState({
-    ingredientes1: [],
-    measures1: [],
   });
   const [mealsInProgress, setMealsInProgress] = useState(false);
   const [mealsDone, setMealsDone] = useState(false);
   const history = useHistory();
-  const { ingredientes1, measures1 } = test;
-  const mix = ingredientes1.map((e, i) => `${e} - ${measures1[i]}`);
+
+  const { ingredients, measures } = ingredientAndMeasure;
+  const mix = ingredients.map((e, i) => `${e} - ${measures[i]}`);
 
   useEffect(() => {
     const getMealInfo = async () => {
@@ -31,29 +27,33 @@ function MealDetails({ match: { path, params: { id } } }) {
       setInfoMeals(data);
 
       if (data !== null && data !== undefined) {
-        const xablau = [];
-        const filterIngrediente = Object.entries(data[0]);
-        const filtroEntries = filterIngrediente.filter((entrie) => entrie[0].includes('strIngredient'));
-        filtroEntries.forEach((filter) => xablau.push(filter[1]));
-        const ingrediantesFiltrados = xablau.filter((ingrediente) => ingrediente !== null && ingrediente !== '')
-        setTest((prevTest) => ({
+        const arrayIngredients = [];
+        const getEntries = Object.entries(data[0]);
+        const filterEntries = getEntries
+          .filter((entrie) => entrie[0].includes('strIngredient'));
+        filterEntries.forEach((filter) => arrayIngredients.push(filter[1]));
+        const ingredientsFiltered = arrayIngredients
+          .filter((ingrediente) => ingrediente !== null && ingrediente !== '');
+        setIngredientAndMeasure((prevTest) => ({
           ...prevTest,
-          ingredientes1: ingrediantesFiltrados
-        }))
+          ingredients: ingredientsFiltered,
+        }));
       }
 
       if (data !== null && data !== undefined) {
-        const xablau = [];
-        const filterIngrediente = Object.entries(data[0]);
-        const filtroEntries = filterIngrediente.filter((entrie) => entrie[0].includes('strMeasure'));
-        filtroEntries.forEach((filter) => xablau.push(filter[1]));
-        const ingrediantesFiltrados = xablau.filter((ingrediente) => ingrediente !== null && ingrediente !== '' && ingrediente !== " ")
-        setTest((prevTest) => ({
+        const arrayMeasures = [];
+        const getEntries = Object.entries(data[0]);
+        const filterEntries = getEntries
+          .filter((entrie) => entrie[0].includes('strMeasure'));
+        filterEntries.forEach((filter) => arrayMeasures.push(filter[1]));
+        const measuresFiltered = arrayMeasures
+          .filter((ingrediente) => ingrediente !== null
+          && ingrediente !== '' && ingrediente !== ' ');
+        setIngredientAndMeasure((prevTest) => ({
           ...prevTest,
-          measures1: ingrediantesFiltrados
-        }))
+          measures: measuresFiltered,
+        }));
       }
-
 
       const itemDone = readLocalStorage(DONE_RECIPES);
       if (itemDone !== null) {
@@ -70,20 +70,21 @@ function MealDetails({ match: { path, params: { id } } }) {
     };
     getMealInfo();
   }, [id]);
- 
+
   const redirectToPageInProgress = () => {
     history.push(`/meals/${id}/in-progress`);
   };
+
   return (
     <>
-      <div>Meal-Details</div>
+      <h1>Informações da Receita</h1>
       <RecipeDetails
         id={ id }
         path={ path }
         dataMeal={ infoMeals }
         ingredientesAndMeasuresMeal={ mix }
-        filteredIngredienteMeal={ test.ingredientes1 }
-        filteredMeasureMeal={ test.measures1 }
+        filteredIngredienteMeal={ ingredientAndMeasure.ingredients }
+        filteredMeasureMeal={ ingredientAndMeasure.measures }
       />
       <Carousel path={ path } />
       {mealsDone === false && (

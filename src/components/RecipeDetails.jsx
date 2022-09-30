@@ -90,10 +90,10 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
           <img src={ shareIcon } alt="Share Button" />
         </button>
         {copiedMsgVisibility && (<p>Link copied!</p>)}
-        <h1 data-testid="recipe-title">
+        <h2 data-testid="recipe-title">
           {element.strDrink}
-        </h1>
-        <h2>Categoria</h2>
+        </h2>
+        <h3>Categoria</h3>
         <p>
           {element.strCategory}
         </p>
@@ -102,7 +102,7 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
         <p data-testid="instructions">
           {element.strInstructions}
         </p>
-        <h2>Ingredientes</h2>
+        <h3>Ingredientes</h3>
         <ul>
           {ingredientesAndMeasuresDrink.map((ingrediente, i) => (
             <li
