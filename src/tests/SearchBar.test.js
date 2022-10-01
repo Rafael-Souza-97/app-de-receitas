@@ -1,55 +1,162 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import meals from '../../cypress/mocks/meals';
-// import Meals from '../pages/Meals';
+import drinks from '../../cypress/mocks/drinks';
+
+const searchInputStrg = 'search-input';
+const ingredientSearchRadioStrg = 'ingredient-search-radio';
+const nameSearchButtonStrg = 'name-search-radio';
+const firstLetterRadioStrg = 'first-letter-search-radio';
+const execSearchBtnStrg = 'exec-search-btn';
+const searchTopButtonStrg = 'search-top-btn';
+const emailInputStrg = 'email-input';
+const passwordInputStrg = 'password-input';
+const loginSubmitBtnStrg = 'login-submit-btn';
+const emailInputed = 'email@email.com';
 
 describe('Testa o componente Search Bar', () => {
   it('Testa se o componente é renderizado na paǵina', () => {
     renderWithRouter(<App />);
-    const searchTopButton = screen.getByTestId('search-top-btn');
+
+    const searchTopButton = screen.getByTestId(searchTopButtonStrg);
     expect(searchTopButton).toBeInTheDocument();
   });
 
-  it('Testa se o Alert é disparado', () => {
+  it('Testa o Search Bar', () => {
     renderWithRouter(<App />);
 
-    const emailInput = screen.getByTestId('email-input');
-    userEvent.type(emailInput, 'email@email.com');
-
-    const passwordInput = screen.getByTestId('password-input');
-    userEvent.type(passwordInput, '1234567');
-
-    const loginBtn = screen.getByTestId('login-submit-btn');
-    userEvent.click(loginBtn);
-
-    const searchTopButton = screen.getByTestId('search-top-btn');
+    const searchTopButton = screen.getByTestId(searchTopButtonStrg);
+    expect(searchTopButton).toBeInTheDocument();
     userEvent.click(searchTopButton);
 
-    const inputValueFilter = screen.getByTestId('search-input');
+    const inputValueFilter = screen.getByTestId(searchInputStrg);
+    waitFor(() => expect(inputValueFilter).toBeInTheDocument());
+
+    const ingredienteSearchRadio = screen.getByTestId(ingredientSearchRadioStrg);
+    waitFor(() => expect(ingredienteSearchRadio).toBeInTheDocument());
+
+    const nameSearchButton = screen.getByTestId(nameSearchButtonStrg);
+    waitFor(() => expect(nameSearchButton).toBeInTheDocument());
+
+    const firstLetterRadio = screen.getByTestId(firstLetterRadioStrg);
+    waitFor(() => expect(firstLetterRadio).toBeInTheDocument());
+  });
+
+  it('Testa se o Alert do FirstLetter é disparado', () => {
+    renderWithRouter(<App />);
+
+    const emailInput = screen.getByTestId(emailInputStrg);
+    userEvent.type(emailInput, emailInputed);
+
+    const passwordInput = screen.getByTestId(passwordInputStrg);
+    userEvent.type(passwordInput, '1234567');
+
+    const loginBtn = screen.getByTestId(loginSubmitBtnStrg);
+    userEvent.click(loginBtn);
+
+    const searchTopButton = screen.getByTestId(searchTopButtonStrg);
+    userEvent.click(searchTopButton);
+
+    const inputValueFilter = screen.getByTestId(searchInputStrg);
     userEvent.type(inputValueFilter, 'aa');
 
-    const firstLetterbutton = screen.getByTestId('first-letter-search-radio');
-    userEvent.click(firstLetterbutton);
+    const firstLetterRadio = screen.getByTestId(firstLetterRadioStrg);
+    userEvent.click(firstLetterRadio);
 
-    const execSearchBtn = screen.getByTestId('exec-search-btn');
+    const execSearchBtn = screen.getByTestId(execSearchBtnStrg);
     userEvent.click(execSearchBtn);
     global.alert = jest.fn();
     expect(global.alert).toHaveBeenCalledTimes(1);
     expect(inputValueFilter).toHaveProperty('value', 'aa');
   });
 
-  it('Testa se filtra com a primeira letra', async () => {
+  it('Testa se o filtro First letter funciona corretamente na tela meals', () => {
     renderWithRouter(<App />);
-    const inputValueFilter = screen.getByTestId('search-input');
+
+    const searchTopButton = screen.getByTestId(searchTopButtonStrg);
+    userEvent.click(searchTopButton);
+
+    const inputValueFilter = screen.getByTestId(searchInputStrg);
+    userEvent.type(inputValueFilter, 'C');
+
+    const firstLetterRadio = screen.getByTestId(firstLetterRadioStrg);
+    userEvent.click(firstLetterRadio);
+
+    const execSearchBtn = screen.getByTestId(execSearchBtnStrg);
+    userEvent.click(execSearchBtn);
+    const fetch = (url) => Promise.resolve({
+      status: 200,
+      ok: true,
+      json: () => {
+        if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?f=C') { return Promise.resolve(meals); }
+      },
+    });
+    expect(fetch).toHaveBeenCalledTimes(1);
+  });
+
+  it('Testa se o filtro Ingrendiente funciona corretamente na tela meals', () => {
+    renderWithRouter(<App />);
+
+    const searchTopButton = screen.getByTestId(searchTopButtonStrg);
+    userEvent.click(searchTopButton);
+
+    const inputValueFilter = screen.getByTestId(searchInputStrg);
+    userEvent.type(inputValueFilter, 'Corba');
+
+    const ingredienteSearchRadio = screen.getByTestId(ingredientSearchRadioStrg);
+    userEvent.click(ingredienteSearchRadio);
+
+    const execSearchBtn = screen.getByTestId(execSearchBtnStrg);
+    userEvent.click(execSearchBtn);
+    const fetch = (url) => Promise.resolve({
+      status: 200,
+      ok: true,
+      json: () => {
+        if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?i=Corba') { return Promise.resolve(meals); }
+      },
+    });
+    expect(fetch).toHaveBeenCalledTimes(1);
+  });
+
+  it('Testa se o filtro Ingrendiente funciona corretamente na tela drinks', () => {
+    renderWithRouter(<App />);
+
+    const drinkIcon = screen.getByTestId('drinks-bottom-btn');
+    userEvent.click(drinkIcon);
+
+    const searchTopButton = screen.getByTestId(searchTopButtonStrg);
+    userEvent.click(searchTopButton);
+
+    const inputValueFilter = screen.getByTestId(searchInputStrg);
+    userEvent.type(inputValueFilter, 'GG');
+
+    const ingredienteSearchRadio = screen.getByTestId(ingredientSearchRadioStrg);
+    userEvent.click(ingredienteSearchRadio);
+
+    const execSearchBtn = screen.getByTestId(execSearchBtnStrg);
+    userEvent.click(execSearchBtn);
+    const fetch = (url) => Promise.resolve({
+      status: 200,
+      ok: true,
+      json: () => {
+        if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=GG') { return Promise.resolve(drinks); }
+      },
+    });
+    waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
+  });
+
+  it('Testa se o filtro Ingrendiente funciona corretamente na tela meals', async () => {
+    renderWithRouter(<App />);
+    const inputValueFilter = screen.getByTestId(searchInputStrg);
     userEvent.type(inputValueFilter, 'a');
 
-    const firstLetterbutton = screen.getByTestId('first-letter-search-radio');
-    userEvent.click(firstLetterbutton);
+    const firstLetterRadio = screen.getByTestId(firstLetterRadioStrg);
+    userEvent.click(firstLetterRadio);
 
-    const execSearchBtn = screen.getByTestId('exec-search-btn');
+    const execSearchBtn = screen.getByTestId(execSearchBtnStrg);
     userEvent.click(execSearchBtn);
 
     const fetch = (url) => Promise.resolve({
@@ -62,15 +169,33 @@ describe('Testa o componente Search Bar', () => {
     expect(fetch).toHaveBeenCalledTimes(1);
   });
 
-  // it('Testa se filtra pelo nome', async () => {
-  //   renderWithRouter(<App />);
-  //   const inputValueFilter = screen.getByTestId('search-input');
-  //   userEvent.type(inputValueFilter, 'Corba');
+  it('Verifica se ao clicar no botão de pesquisa a barra search é renderizada', () => {
+    renderWithRouter(<App />);
+    const emailInput = screen.getByTestId(emailInputStrg);
+    userEvent.type(emailInput, emailInputed);
 
-  //   const nameSearchButton = screen.getByTestId('name-search-radio');
-  //   userEvent.click(nameSearchButton);
+    const passwordInput = screen.getByTestId(passwordInputStrg);
+    userEvent.type(passwordInput, '1234567');
 
-  //   const execSearchBtn = screen.getByTestId('exec-search-btn');
-  //   userEvent.click(execSearchBtn);
-  // });
+    const loginBtn = screen.getByTestId(loginSubmitBtnStrg);
+    userEvent.click(loginBtn);
+
+    const searchIcon = screen.getByTestId(searchTopButtonStrg);
+    userEvent.click(searchIcon);
+
+    const inputValueFilter = screen.getByTestId(searchInputStrg);
+    expect(inputValueFilter).toBeInTheDocument();
+  });
+
+  it('Testa se filtra pelo nome', async () => {
+    renderWithRouter(<App />);
+    const inputValueFilter = screen.getByTestId(searchInputStrg);
+    userEvent.type(inputValueFilter, 'Corba');
+
+    const nameSearchButton = screen.getByTestId(nameSearchButtonStrg);
+    userEvent.click(nameSearchButton);
+
+    const execSearchBtn = screen.getByTestId(execSearchBtnStrg);
+    userEvent.click(execSearchBtn);
+  });
 });

@@ -7,13 +7,8 @@ import SearchBar from './SearchBar';
 // import RecipesContext from '../context/RecipesContext';
 
 function Header({ title }) {
-  // const { inputValue, setInputValue } = useContext(RecipesContext);
-
   const [searchOpen, setSearchOpen] = useState(false);
 
-  // const handleChange = ({ target }) => {
-  //   setInputValue(target.value);
-  // };
   return (
     <div>
       <header>
