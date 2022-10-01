@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Carousel from './Carousel';
 import { favoriteMealCreator, favoriteDrinkCreator } from '../services/objCreator';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -18,6 +17,7 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
     const getFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (getFavoriteRecipes !== null) {
       const filteredRecipes = getFavoriteRecipes.filter((recipe) => recipe.id === id);
+      setFavoriteRecipes(getFavoriteRecipes);
       if (filteredRecipes.length > 0) {
         setIsFavorite(true);
       }
@@ -25,7 +25,7 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
     if (!JSON.parse(localStorage.getItem('favoriteRecipes'))) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
@@ -63,7 +63,7 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
           data-testid="recipe-photo"
           src={ element.strDrinkThumb }
           alt={ element.strDrink }
-          style={ { width: '300px' } }
+          style={ { width: '100px' } }
         />
         <button
           type="button"
@@ -91,10 +91,10 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
           <img src={ shareIcon } alt="Share Button" />
         </button>
         {copiedMsgVisibility && (<p>Link copied!</p>)}
-        <h1 data-testid="recipe-title">
+        <h2 data-testid="recipe-title">
           {element.strDrink}
-        </h1>
-        <h2>Categoria</h2>
+        </h2>
+        <h3>Categoria</h3>
         <p>
           {element.strCategory}
         </p>
@@ -103,7 +103,7 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
         <p data-testid="instructions">
           {element.strInstructions}
         </p>
-        <h2>Ingredientes</h2>
+        <h3>Ingredientes</h3>
         <ul>
           {ingredientesAndMeasuresDrink.map((ingrediente, i) => (
             <li
@@ -115,7 +115,6 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
             </li>
           ))}
         </ul>
-        <Carousel path={ path } />
       </div>
     ));
     return info;
@@ -128,7 +127,7 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
           data-testid="recipe-photo"
           src={ element.strMealThumb }
           alt={ element.strMeal }
-          style={ { width: '300px' } }
+          style={ { width: '100px' } }
         />
         <button
           type="button"
@@ -191,7 +190,6 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
             </li>
           ))}
         </ul>
-        <Carousel path={ path } />
       </div>
     ));
     return info;
@@ -203,7 +201,6 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
   };
   return (
     <>
-      {id}
       {renderization()}
     </>
   );
