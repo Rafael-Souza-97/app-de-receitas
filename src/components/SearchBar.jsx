@@ -1,4 +1,3 @@
-// import PropTypes, { objectOf, shape } from 'prop-types';
 import { string } from 'prop-types';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
