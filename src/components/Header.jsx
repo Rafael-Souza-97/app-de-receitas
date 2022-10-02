@@ -1,19 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-import RecipesContext from '../context/RecipesContext';
+// import RecipesContext from '../context/RecipesContext';
 
 function Header({ title }) {
-  const { inputValue, setInputValue } = useContext(RecipesContext);
-
   const [searchOpen, setSearchOpen] = useState(false);
 
-  const handleChange = ({ target }) => {
-    setInputValue(target.value);
-  };
   return (
     <div>
       <header>
@@ -24,6 +19,7 @@ function Header({ title }) {
             alt="Profile icon"
           />
         </Link>
+        <h1 data-testid="page-title">{title}</h1>
         {(title !== 'Profile' && title !== 'Done Recipes' && title !== 'Favorite Recipes')
       && (
         <button
@@ -40,14 +36,8 @@ function Header({ title }) {
         {searchOpen
         && (
           <div>
-            <input
-              data-testid="search-input"
-              value={ inputValue }
-              onChange={ handleChange }
-            />
-            <SearchBar />
+            <SearchBar pageTitle={ title } />
           </div>)}
-        <h1 data-testid="page-title">{title}</h1>
       </header>
     </div>
   );

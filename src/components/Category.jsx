@@ -55,7 +55,6 @@ function Category({ path }) {
   };
 
   useEffect(() => {
-
   }, [selectedCategoryMeals, selectedCategoryDrinks]);
 
   return (
