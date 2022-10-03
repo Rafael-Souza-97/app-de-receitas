@@ -4,6 +4,7 @@ import RecipesContext from '../context/RecipesContext';
 import { addMealsTokenLocalStorage,
   addDrinksTokenLocalStorage,
   addEmailLocalStorage } from '../services/localStorage';
+import LoginComponent from '../components/LoginComponent';
 
 function Login({ history }) {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -41,34 +42,12 @@ function Login({ history }) {
 
   return (
     <div>
-      <label htmlFor="email-input">
-        Email:
-        <input
-          data-testid="email-input"
-          type="email"
-          name="email"
-          value={ userLogin.email }
-          onChange={ handleChange }
-        />
-      </label>
-      <label htmlFor="password-input">
-        Senha:
-        <input
-          data-testid="password-input"
-          type="password"
-          name="password"
-          value={ userLogin.password }
-          onChange={ handleChange }
-        />
-      </label>
-      <button
-        data-testid="login-submit-btn"
-        type="submit"
-        disabled={ isDisabled }
-        onClick={ handleLoginButton }
-      >
-        Enter
-      </button>
+      <LoginComponent
+        validateLogin={ validateLogin }
+        handleChange={ handleChange }
+        handleLoginButton={ handleLoginButton }
+        isDisabled={ isDisabled }
+      />
     </div>
   );
 }

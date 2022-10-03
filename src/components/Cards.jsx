@@ -42,6 +42,7 @@ function Cards({ path }) {
     <div>
       { renderCards.map((recipe, index) => (
         <Link
+          className="card-title"
           to={ path === '/meals' ? `/meals/${recipe.idMeal}`
             : `/drinks/${recipe.idDrink}` }
           key={ index }

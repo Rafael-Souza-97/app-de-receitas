@@ -1,0 +1,59 @@
+.form-bg {
+  background-image: url('../images/papel-vazio-para-receitas-sobre-o-fundo-de-madeira-com-café-e-s-35870080.jpg');
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  opacity: 100%;
+}
+
+.container-form {
+  display: flex;
+  opacity: 100%;
+  border: none;
+  width: 77%;
+  height: 50%;
+}
+
+.row{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-left: 35%;
+  margin-top: 40%;
+}
+
+.form-container {
+  display: flex;
+}
+
+.form-horizontal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-form {
+  margin-bottom: 50px;
+  font-family: monospace;
+  font-size: 40px;
+}
+
+.form-control {
+  margin-bottom: 25px;
+}
+
+.password {
+  margin-bottom: 35px;
+}
+
+.form-btn {
+  margin-bottom: 130px;
+  padding: 10px 40px;
+}
+
+.register {
+  color: black;
+  margin-left: 5px;
+  text-decoration: none;
+}

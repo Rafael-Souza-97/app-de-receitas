@@ -63,6 +63,8 @@ describe('Testa a página de detalhes das receitas', () => {
     const shareBtn = screen.getByTestId('0-horizontal-share-btn');
     expect(shareBtn).toBeInTheDocument();
 
+    // userEvent.click(shareBtn);
+
     expect(drinkTitle).toBeInTheDocument();
   });
 

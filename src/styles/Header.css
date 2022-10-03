@@ -1,0 +1,20 @@
+/* .header {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5px;
+} */
+
+.title-page {
+  margin: 0.1px;
+}
+
+.container-searchBar {
+  display: flex;
+  justify-content: space-around;
+  width: ;
+}
+
+/* .header-main {
+  display: flex;
+} */

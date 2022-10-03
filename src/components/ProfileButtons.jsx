@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { readLocalStorage } from '../services/localStorage';
+import { readLocalStorage } from '../services/localStorage';
 import '../styles/Profile.css';
 
 function ProfileButtons() {
-  // const userEmail = readLocalStorage('user');
+  const userEmail = readLocalStorage('user');
 
   return (
     <div className="section-container">
       <div>
         <h3 data-testid="profile-email" className="email">
-          User Email
+          { userEmail.email }
         </h3>
       </div>
 
