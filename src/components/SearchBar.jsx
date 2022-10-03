@@ -1,61 +1,132 @@
+import { string } from 'prop-types';
 import React, { useContext } from 'react';
-
+import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import { filterMealsAPI, filterDrinkAPI } from '../services/fetchs/filteredAPI';
 
-function SearchBar() {
+const NUMBER_ZERO = 0;
+const NUMBER_TWELVE = 12;
+function SearchBar({ pageTitle }) {
+  const history = useHistory();
   const {
     inputValue,
     filterSearch,
     setFilterSearch,
     setShowRecipes,
+    setInputValue,
+    setRecipesDrinksSearch,
+    setRecipesMealsSearch,
   } = useContext(RecipesContext);
 
-  const handleChange = ({ target }) => {
-    setFilterSearch(target.value);
+  const drinkValidate = pageTitle === 'Drinks';
+  const mealsValidadte = pageTitle === 'Meals';
+
+  const handleChange = ({ target }) => (
+    target.name === 'inputsearch'
+      ? setInputValue(target.value)
+      : setFilterSearch(target.value)
+  );
+
+  const redirectRecipes = (recipes) => {
+    if (recipes === null) {
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+    if (recipes) {
+      if (pageTitle === 'Drinks' && recipes.length === 1) {
+        history.push(`/drinks/${recipes[0].idDrink}`);
+      }
+      if (pageTitle === 'Meals' && recipes.length === 1) {
+        history.push(`/meals/${recipes[0].idMeal}`);
+      }
+    }
   };
-  // XABLAU
-  const handleClick = async () => {
-    const firstLetter = ('First letter');
-    let endpoint = '';
-    let recipes = [];
+
+  const feEmDeus = async (endPoint) => {
+    const recipesDrinks = await filterDrinkAPI(endPoint);
+    redirectRecipes(recipesDrinks);
+    if (recipesDrinks !== null) {
+      setRecipesDrinksSearch(recipesDrinks.slice(NUMBER_ZERO, NUMBER_TWELVE));
+      setShowRecipes(true);
+    }
+  };
+
+  const drinkClick = async () => {
+    const firstLetter = 'First letter';
+    let endPoint = '';
 
     if (inputValue.length > 1 && filterSearch === (firstLetter)) {
-      global.alert('Your search must have only 1 (one) character');
+      return global.alert('Your search must have only 1 (one) character');
     }
     if (inputValue.length === 1 && filterSearch === (firstLetter)) {
-      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
-      recipes = await filterMealsAPI(endpoint).meals;
-      console.log(await filterMealsAPI(endpoint).meals);
+      endPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputValue}`;
+      feEmDeus(endPoint);
     }
-    if (filterSearch === 'Ingredient') {
-      endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
-      recipes = await filterMealsAPI(endpoint).meals;
+    if (filterSearch === 'Ingredient' && drinkValidate) {
+      console.log(inputValue, 'inputValue');
+      endPoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputValue}`;
+      feEmDeus(endPoint);
     }
     if (filterSearch === 'Name') {
-      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
-      recipes = await filterMealsAPI(endpoint).meals;
+      endPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`;
+      feEmDeus(endPoint);
     }
+  };
+
+  const feEmJesus = async (endPoint) => {
+    const recipesMeals = await filterMealsAPI(endPoint);
+    redirectRecipes(recipesMeals);
+    if (recipesMeals !== null) {
+      setRecipesMealsSearch(recipesMeals.slice(NUMBER_ZERO, NUMBER_TWELVE));
+      setShowRecipes(true);
+    }
+  };
+
+  const mealsClick = async () => {
+    const firstLetter = 'First letter';
+    let endPoint = '';
+
     if (inputValue.length > 1 && filterSearch === (firstLetter)) {
-      global.alert('Your search must have only 1 (one) character');
+      return global.alert('Your search must have only 1 (one) character');
     }
+
     if (inputValue.length === 1 && filterSearch === (firstLetter)) {
-      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputValue}`;
-      recipes = await filterDrinkAPI(endpoint).drinks;
+      if (inputValue === '') { return null; }
+      endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
+      feEmJesus(endPoint);
     }
     if (filterSearch === 'Ingredient') {
-      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputValue}`;
-      recipes = await filterDrinkAPI(endpoint).drinks;
+      if (inputValue === '') { return null; }
+      endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
+      feEmJesus(endPoint);
     }
     if (filterSearch === 'Name') {
-      endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`;
-      recipes = await filterDrinkAPI(endpoint).drinks;
+      if (inputValue === '') { return null; }
+      endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
+      feEmJesus(endPoint);
     }
-    setShowRecipes(recipes);
+  };
+
+  const handleClick = () => {
+    if (drinkValidate) {
+      drinkClick();
+      setInputValue('');
+      setShowRecipes(false);
+    }
+    if (mealsValidadte) {
+      mealsClick();
+      setInputValue('');
+      setShowRecipes(false);
+    }
   };
 
   return (
     <div>
+      <input
+        data-testid="search-input"
+        value={ inputValue }
+        name="inputsearch"
+        onChange={ handleChange }
+      />
       <input
         type="radio"
         data-testid="ingredient-search-radio"
@@ -91,5 +162,9 @@ function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  pageTitle: string.isRequired,
+};
 
 export default SearchBar;

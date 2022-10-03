@@ -27,7 +27,9 @@ function RecipesProvider({ children }) {
   const [isFilterButtonSelected, setIsFilterButtonSelected] = useState(false);
   const [filterSearch, setFilterSearch] = useState('');
   const [inputValue, setInputValue] = useState('');
-  const [showRecipes, setShowRecipes] = useState([]);
+  const [showRecipes, setShowRecipes] = useState(false);
+  const [recipesDrinksSearch, setRecipesDrinksSearch] = useState([]);
+  const [recipesMealsSearch, setRecipesMealsSearch] = useState([]);
 
   useEffect(() => {
     const mealsData = async () => {
@@ -72,6 +74,8 @@ function RecipesProvider({ children }) {
     inputValue,
     showRecipes,
     filterSearch,
+    recipesDrinksSearch,
+    recipesMealsSearch,
     setUserLogin,
     setRenderMeals12Cards,
     setRenderDrinks12Cards,
@@ -85,6 +89,8 @@ function RecipesProvider({ children }) {
     setInputValue,
     setShowRecipes,
     setFilterSearch,
+    setRecipesDrinksSearch,
+    setRecipesMealsSearch,
   };
 
   return (
