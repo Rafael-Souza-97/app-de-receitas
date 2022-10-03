@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RecipeDetails from '../components/RecipeDetails';
 import Carousel from '../components/Carousel';
 import { fetchDrinksDetails } from '../services/fetchs/fetchItemsDetails';
@@ -86,6 +86,13 @@ function DrinkDetails({ match: { path, params: { id } } }) {
         filteredIngredienteDrink={ ingredientAndMeasure.ingredients }
         filteredMeasureDrink={ ingredientAndMeasure.measures }
       />
+
+      <Link to="/favorite-recipes">
+        <button type="button" data-testid="favorite-redirect">
+          Favoritos
+        </button>
+      </Link>
+
       <Carousel path={ path } />
       {drinksDone === false && (
         <button

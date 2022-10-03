@@ -39,7 +39,7 @@ function FavoriteRecipesCards() {
 
   const shareLink = ({ target }) => {
     const linkRef = `http://localhost:3000/${target.name}s/${target.id}`;
-    const showMsgTime = 3000;
+    const showMsgTime = 5000;
     setCopiedMsgVisibility(true);
     setTimeout(() => setCopiedMsgVisibility(false), showMsgTime);
     copy(linkRef);
@@ -112,7 +112,7 @@ function FavoriteRecipesCards() {
                 />
               </button>
 
-              { copiedMsgVisibility && (<p>Link copied!</p>) }
+              { copiedMsgVisibility && (<p data-testid="link-copied">Link copied!</p>) }
 
             </div>
 
