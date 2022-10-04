@@ -3,13 +3,18 @@ import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Recipes from '../components/Recipes';
+import '../styles/Meals.css';
 
 function Meals({ match: { path } }) {
   return (
     <div>
-      <Header title="Meals" />
-      <Recipes path={ path } />
-      <Footer />
+      <div className="meals-bg ">
+        <div className="header-bg">
+          <Header title="Meals" />
+        </div>
+        <Recipes path={ path } />
+        <Footer />
+      </div>
     </div>
   );
 }

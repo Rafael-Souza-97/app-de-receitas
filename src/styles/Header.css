@@ -9,12 +9,6 @@
   margin: 0.1px;
 }
 
-.container-searchBar {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-}
-
 .header-main {
   display: flex;
   width: 100%;

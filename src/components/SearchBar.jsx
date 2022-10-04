@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import { filterMealsAPI, filterDrinkAPI } from '../services/fetchs/filteredAPI';
+import '../styles/SearchBar.css';
 
 const NUMBER_ZERO = 0;
 const NUMBER_TWELVE = 12;
@@ -117,12 +118,17 @@ function SearchBar({ pageTitle }) {
 
   return (
     <div>
-      <input
-        data-testid="search-input"
-        value={ inputValue }
-        name="inputsearch"
-        onChange={ handleChange }
-      />
+
+      <div className="container-searchBar">
+        <input
+          data-testid="search-input"
+          value={ inputValue }
+          name="inputsearch"
+          onChange={ handleChange }
+        />
+
+      </div>
+
       <input
         type="radio"
         data-testid="ingredient-search-radio"
@@ -155,6 +161,7 @@ function SearchBar({ pageTitle }) {
       >
         Buscar
       </button>
+
     </div>
   );
 }

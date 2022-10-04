@@ -11,7 +11,7 @@ function Header({ title }) {
   const [searchOpen, setSearchOpen] = useState(false);
 
   return (
-    <div className="container-searchBar">
+    <div>
       <div className="header-main">
         <Link to="/profile">
           <img

@@ -1,0 +1,16 @@
+.meals-bg { 
+    background-image: url('../images/FundoMadeiraEscura.jpeg');
+    background-size:cover;
+    background-attachment: fixed;
+    width: 100vw;
+    height:auto;
+    position: absolute;
+ 
+  }
+
+  .header-bg {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+  }
