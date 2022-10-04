@@ -37,14 +37,12 @@ function Header({ title }) {
         </button>
       )}
       </div>
-
-      <div className="searchBar">
-        {searchOpen
+      {searchOpen
         && (
           <div>
             <SearchBar pageTitle={ title } />
           </div>)}
-      </div>
+
     </div>
   );
 }
