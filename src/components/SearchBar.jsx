@@ -117,51 +117,65 @@ function SearchBar({ pageTitle }) {
   };
 
   return (
-    <div>
+    <div className="container-SearchBar">
 
-      <div className="container-searchBar">
+      <div className="container-input-SearchBar">
         <input
           data-testid="search-input"
+          placeholder="Search"
           value={ inputValue }
           name="inputsearch"
           onChange={ handleChange }
         />
 
       </div>
-
-      <input
-        type="radio"
-        data-testid="ingredient-search-radio"
-        value="Ingredient"
-        name="radio"
-        onChange={ handleChange }
-      />
-      Ingrediente
-      <input
-        type="radio"
-        data-testid="name-search-radio"
-        value="Name"
-        name="radio"
-        onChange={ handleChange }
-      />
-      Nome da receita
-      <input
-        type="radio"
-        data-testid="first-letter-search-radio"
-        value="First letter"
-        name="radio"
-        onChange={ handleChange }
-      />
-      Começa com ...
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        value="Search"
-        onClick={ handleClick }
-      >
-        Buscar
-      </button>
-
+      <div className="container-radioBtn-SearchBar">
+        <label For="Ingredient">
+          <input
+            type="radio"
+            id="Ingredient"
+            data-testid="ingredient-search-radio"
+            value="Ingredient"
+            name="radio"
+            onChange={ handleChange }
+          />
+          Ingredient
+        </label>
+        <label For="Name">
+          <input
+            type="radio"
+            id="Name"
+            data-testid="name-search-radio"
+            value="Name"
+            name="radio"
+            onChange={ handleChange }
+          />
+          Name
+        </label>
+        <label For="Start with">
+          <input
+            type="radio"
+            id="Start with"
+            data-testid="first-letter-search-radio"
+            value="First letter"
+            name="radio"
+            onChange={ handleChange }
+          />
+          Start with
+        </label>
+      </div>
+      <div className="Search-BTN">
+        <button
+          type="button"
+          data-testid="exec-search-btn"
+          value="Search"
+          onClick={ handleClick }
+        >
+          <span className="text">
+            Search
+          </span>
+        </button>
+      </div>
     </div>
   );
 }

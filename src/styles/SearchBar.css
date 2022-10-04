@@ -1,8 +1,28 @@
-.container-searchBar {
+.container-input-SearchBar {
     display: flex;
     width: 100%;
     justify-content: space-around;
-    align-items: center;
   }
 
+.container-radioBtn-SearchBar {
+    display: flex;
+    background-color: #fff;
+    opacity: 80%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 1em 3em;
+  }
+
+.Search-BTN {
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+    cursor: pointer;
+}
   
+.container-SearchBar {
+    display: flex;
+    flex-direction: column;
+}
+
