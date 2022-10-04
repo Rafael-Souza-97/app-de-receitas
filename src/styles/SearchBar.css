@@ -15,30 +15,30 @@
 }
 
 .Search-BTN {
-    display: flex;
-    justify-content: space-evenly;
-    position: relative;
-    cursor: pointer;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-evenly;
+  position: relative;
 }
-  
+
 .container-SearchBar {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 60px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
 }
 
 .radio-Btn {
-    display: flex;
-    width: 20em;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    border-radius: 15px;
+  align-items: center;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  width: 20em;
 }
 
-.input-search{
-  width: 40%;
+.input-search {
   margin-bottom: 5px;
+  width: 40%;
 }

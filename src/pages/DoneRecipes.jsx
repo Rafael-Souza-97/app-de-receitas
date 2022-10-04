@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { DONE_RECIPES, readLocalStorage } from '../services/localStorage';
 import shareIcon from '../images/shareIcon.svg';
-import '../styles/Category.css';
+import '../styles/DoneRecipes.css';
 
 const copy = require('clipboard-copy');
 
@@ -114,7 +114,7 @@ function DoneRecipes() {
       <div>
         <Header title="Done Recipes" />
       </div>
-      <div className="card-container">
+      <div className="card-container-done">
         <button
           onClick={ filteredAll }
           type="button"
