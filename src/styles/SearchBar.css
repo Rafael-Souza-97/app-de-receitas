@@ -23,6 +23,15 @@
   
 .container-SearchBar {
     display: flex;
+    align-items: center;
     flex-direction: column;
 }
 
+.radio-Btn {
+    display: flex;
+    width: 20em;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}

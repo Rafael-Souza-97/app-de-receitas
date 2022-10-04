@@ -130,39 +130,41 @@ function SearchBar({ pageTitle }) {
 
       </div>
       <div className="container-radioBtn-SearchBar">
-        <label For="Ingredient">
-          <input
-            type="radio"
-            id="Ingredient"
-            data-testid="ingredient-search-radio"
-            value="Ingredient"
-            name="radio"
-            onChange={ handleChange }
-          />
-          Ingredient
-        </label>
-        <label For="Name">
-          <input
-            type="radio"
-            id="Name"
-            data-testid="name-search-radio"
-            value="Name"
-            name="radio"
-            onChange={ handleChange }
-          />
-          Name
-        </label>
-        <label For="Start with">
-          <input
-            type="radio"
-            id="Start with"
-            data-testid="first-letter-search-radio"
-            value="First letter"
-            name="radio"
-            onChange={ handleChange }
-          />
-          Start with
-        </label>
+        <div className="radio-Btn">
+          <label For="Ingredient">
+            <input
+              type="radio"
+              id="Ingredient"
+              data-testid="ingredient-search-radio"
+              value="Ingredient"
+              name="radio"
+              onChange={ handleChange }
+            />
+            Ingredient
+          </label>
+          <label For="Name">
+            <input
+              type="radio"
+              id="Name"
+              data-testid="name-search-radio"
+              value="Name"
+              name="radio"
+              onChange={ handleChange }
+            />
+            Name
+          </label>
+          <label For="Start with">
+            <input
+              type="radio"
+              id="Start with"
+              data-testid="first-letter-search-radio"
+              value="First letter"
+              name="radio"
+              onChange={ handleChange }
+            />
+            Start with
+          </label>
+        </div>
       </div>
       <div className="Search-BTN">
         <button
