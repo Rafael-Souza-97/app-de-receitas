@@ -28,16 +28,16 @@ function SearchBar({ pageTitle }) {
   );
 
   const redirectRecipes = (recipes) => {
-    if (recipes === null) {
-      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
-    }
     if (recipes) {
-      if (pageTitle === 'Drinks' && recipes.length === 1) {
-        history.push(`/drinks/${recipes[0].idDrink}`);
-      }
       if (pageTitle === 'Meals' && recipes.length === 1) {
         history.push(`/meals/${recipes[0].idMeal}`);
       }
+      if (pageTitle === 'Drinks' && recipes.length === 1) {
+        history.push(`/drinks/${recipes[0].idDrink}`);
+      }
+    }
+    if (recipes === null) {
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
   };
 
@@ -62,7 +62,6 @@ function SearchBar({ pageTitle }) {
       feEmDeus(endPoint);
     }
     if (filterSearch === 'Ingredient' && drinkValidate) {
-      console.log(inputValue, 'inputValue');
       endPoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputValue}`;
       feEmDeus(endPoint);
     }
@@ -90,17 +89,14 @@ function SearchBar({ pageTitle }) {
     }
 
     if (inputValue.length === 1 && filterSearch === (firstLetter)) {
-      if (inputValue === '') { return null; }
       endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
       feEmJesus(endPoint);
     }
     if (filterSearch === 'Ingredient') {
-      if (inputValue === '') { return null; }
       endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
       feEmJesus(endPoint);
     }
     if (filterSearch === 'Name') {
-      if (inputValue === '') { return null; }
       endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
       feEmJesus(endPoint);
     }
