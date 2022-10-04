@@ -12,9 +12,12 @@
 .container-searchBar {
   display: flex;
   justify-content: space-around;
-  width: ;
+  width: 100%;
 }
 
-/* .header-main {
+.header-main {
   display: flex;
-} */
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
