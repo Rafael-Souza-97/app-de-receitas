@@ -118,6 +118,7 @@ function FavoriteRecipesCards() {
 
             <Link
               to={ `/${favoriteRecipe.type}s/${favoriteRecipe.id}` }
+              className="card-title-favorite-link"
             >
               <img
                 src={ favoriteRecipe.image }

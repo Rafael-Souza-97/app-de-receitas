@@ -16,6 +16,7 @@ function Footer() {
             src={ drinkIcon }
             alt="Drink Icon"
             data-testid="drinks-bottom-btn"
+            className="btn drink-icon"
           />
         </Link>
 
@@ -24,6 +25,7 @@ function Footer() {
             src={ mealIcon }
             alt="meal Icon"
             data-testid="meals-bottom-btn"
+            className="btn meal-icon"
           />
         </Link>
       </footer>

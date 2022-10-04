@@ -16,8 +16,12 @@
 }
 
 .header-main {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
   align-items: center;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.profile-btn:hover {
+  border: 1px solid black;
 }

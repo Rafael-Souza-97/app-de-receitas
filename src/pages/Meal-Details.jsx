@@ -7,6 +7,7 @@ import { fetchMealsDetails } from '../services/fetchs/fetchItemsDetails';
 import { readLocalStorage,
   IN_PROGRESS_RECIPES,
   DONE_RECIPES } from '../services/localStorage';
+import '../styles/Details.css';
 
 function MealDetails({ match: { path, params: { id } } }) {
   const [infoMeals, setInfoMeals] = useState([]);
@@ -76,8 +77,7 @@ function MealDetails({ match: { path, params: { id } } }) {
   };
 
   return (
-    <>
-      <h1>Informações da Receita</h1>
+    <div>
       <RecipeDetails
         id={ id }
         path={ path }
@@ -87,24 +87,30 @@ function MealDetails({ match: { path, params: { id } } }) {
         filteredMeasureMeal={ ingredientAndMeasure.measures }
       />
 
-      <Link to="/favorite-recipes">
-        <button type="button" data-testid="favorite-redirect">
-          Favoritos
-        </button>
+      <div className="container-btn">
+        {mealsDone === false && (
+          <button
+            type="button"
+            onClick={ redirectToPageInProgress }
+            data-testid="start-recipe-btn"
+            className="btn start"
+          >
+            {mealsInProgress ? 'Continue Recipe' : 'Start Recipe'}
+          </button>
+        )}
 
-      </Link>
-      <Carousel path={ path } />
-      {mealsDone === false && (
-        <button
-          type="button"
-          style={ { position: 'fixed', bottom: '0px' } }
-          onClick={ redirectToPageInProgress }
-          data-testid="start-recipe-btn"
-        >
-          {mealsInProgress ? 'Continue Recipe' : 'Start Recipe'}
-        </button>
-      )}
-    </>
+        <Link to="/favorite-recipes">
+          <button type="button" data-testid="favorite-redirect" className="btn favorite">
+            Favoritos
+          </button>
+        </Link>
+
+      </div>
+
+      <div className="carousel-scroll">
+        <Carousel path={ path } />
+      </div>
+    </div>
   );
 }
 

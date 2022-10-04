@@ -3,9 +3,25 @@
   background-color: #e3e3e3;
   bottom: 0;
   display: flex;
-  height: 40px;
+  height: 45px;
   justify-content: space-around;
   left: 0;
   position: fixed;
   right: 0;
+}
+
+.meal-icon {
+  width: 60px;
+}
+
+.meal-icon:hover {
+  border: 1px solid black;
+}
+
+.drink-icon {
+  width: 60px;
+}
+
+.drink-icon:hover {
+  border: 1px solid black;
 }
