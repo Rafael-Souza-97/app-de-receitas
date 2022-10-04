@@ -1,18 +1,18 @@
 .container-input-SearchBar {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-  }
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
 
 .container-radioBtn-SearchBar {
-    display: flex;
-    background-color: #fff;
-    opacity: 80%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    margin: 1em 3em;
-  }
+  align-items: center;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 1em 3em;
+  opacity: 80%;
+}
 
 .Search-BTN {
     display: flex;
@@ -25,6 +25,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin-top: 60px;
 }
 
 .radio-Btn {
@@ -34,4 +35,10 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    border-radius: 15px;
+}
+
+.input-search{
+  width: 40%;
+  margin-bottom: 5px;
 }

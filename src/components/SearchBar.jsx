@@ -126,12 +126,13 @@ function SearchBar({ pageTitle }) {
           value={ inputValue }
           name="inputsearch"
           onChange={ handleChange }
+          className="form-control input-search"
         />
 
       </div>
       <div className="container-radioBtn-SearchBar">
         <div className="radio-Btn">
-          <label For="Ingredient">
+          <label htmlFor="Ingredient">
             <input
               type="radio"
               id="Ingredient"
@@ -142,7 +143,7 @@ function SearchBar({ pageTitle }) {
             />
             Ingredient
           </label>
-          <label For="Name">
+          <label htmlFor="Name">
             <input
               type="radio"
               id="Name"
@@ -153,7 +154,7 @@ function SearchBar({ pageTitle }) {
             />
             Name
           </label>
-          <label For="Start with">
+          <label htmlFor="Start with">
             <input
               type="radio"
               id="Start with"
@@ -172,6 +173,7 @@ function SearchBar({ pageTitle }) {
           data-testid="exec-search-btn"
           value="Search"
           onClick={ handleClick }
+          className="btn btn-light"
         >
           <span className="text">
             Search
