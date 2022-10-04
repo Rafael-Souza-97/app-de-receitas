@@ -9,9 +9,7 @@ function Meals({ match: { path } }) {
   return (
     <div>
       <div className="meals-bg ">
-
         <Header title="Meals" />
-
         <Recipes path={ path } />
         <Footer />
       </div>

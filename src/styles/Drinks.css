@@ -1,0 +1,8 @@
+.drinks-bg {
+    background-image: url('../images/wallpaperbetter.com_2560x1080.jpg');
+    background-size:cover;
+    background-attachment: fixed;
+    width: 100vw;
+    height:auto;
+    position: absolute;
+}
