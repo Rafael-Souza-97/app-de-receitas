@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RecipesDrinks from './RecipesDrinks';
 import RecipesMeals from './RecipesMeals';
+import '../styles/Details.css';
 
 function Carousel({ path }) {
   return (

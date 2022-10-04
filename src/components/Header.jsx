@@ -17,7 +17,7 @@ function Header({ title }) {
           <img
             src={ profileIcon }
             data-testid="profile-top-btn"
-            className="btn"
+            className="btn profile-btn"
             alt="Profile icon"
           />
         </Link>

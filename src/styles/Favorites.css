@@ -11,5 +11,11 @@
   display: flex;
   justify-content: center;
   margin: 5px 0.1px 25px;
+  opacity: 50%;
   text-decoration: none;
 }
+
+.card-title-favorite-link {
+  text-decoration: none;
+}
+
