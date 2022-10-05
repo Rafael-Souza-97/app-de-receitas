@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import RecipeDetails from '../components/RecipeDetails';
 import Carousel from '../components/Carousel';
 import { fetchDrinksDetails } from '../services/fetchs/fetchItemsDetails';
+import Footer from '../components/Footer';
 import { readLocalStorage,
   IN_PROGRESS_RECIPES,
   DONE_RECIPES } from '../services/localStorage';
@@ -77,7 +78,7 @@ function DrinkDetails({ match: { path, params: { id } } }) {
   };
 
   return (
-    <div>
+    <div className="main-detail">
       <RecipeDetails
         id={ id }
         path={ path }
@@ -107,6 +108,7 @@ function DrinkDetails({ match: { path, params: { id } } }) {
       </div>
       <div className="carousel-scroll">
         <Carousel path={ path } />
+        <Footer />
       </div>
     </div>
   );

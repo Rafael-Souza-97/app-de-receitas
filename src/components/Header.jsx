@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
-import profileIcon from '../images/3377053_bibimbub_cooking_food_japan_icon.svg';
+import profileIcon from '../images/1891016_user_male_avatar_account_profile_icon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import '../styles/Header.css';
