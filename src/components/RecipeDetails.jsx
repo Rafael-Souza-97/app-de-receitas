@@ -59,7 +59,7 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
 
   const mapDrinks = () => {
     const info = dataDrink.map((element, index) => (
-      <div key={ index } className="main-detail">
+      <div key={ index }>
         <div className="img-container">
           <div className="image-recipe-details-container">
             <img
@@ -127,7 +127,7 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
           <h2>
             Preparation Instructions
           </h2>
-          <div>
+          <div className="container-instructions">
             <p data-testid="instructions">
               {element.strInstructions}
             </p>

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
-import profileIcon from '../images/profileIcon.svg';
+import profileIcon from '../images/3377053_bibimbub_cooking_food_japan_icon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-// import RecipesContext from '../context/RecipesContext';
 import '../styles/Header.css';
 
 function Header({ title }) {
@@ -32,6 +31,7 @@ function Header({ title }) {
           <img
             src={ searchIcon }
             data-testid="search-top-btn"
+            className="btn search-btn"
             alt="Search Icon"
           />
         </button>

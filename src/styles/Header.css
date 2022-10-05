@@ -4,15 +4,23 @@
 
 .header-main {
   align-items: center;
-  background-color: #e3e3e3;
+  background-color: #014c03;
   display: flex;
   justify-content: space-around;
   position: fixed;
+  color: #cd7300;
   top: 0;
   width: 100%;
   z-index: 1;
 }
+.profile-btn{
+  width: 60px;
+}
 
 .profile-btn:hover {
   border: 1px solid black;
+}
+
+.search-btn{
+  width: 60px;
 }

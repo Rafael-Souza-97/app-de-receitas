@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import drinkIcon from '../images/drinkIcon.svg';
-import mealIcon from '../images/mealIcon.svg';
+import drinkIcon from '../images/00drinksicon.svg';
+import mealIcon from '../images/3377053_bibimbub_cooking_food_japan_icon.svg';
 import '../styles/Footer.css';
 
 function Footer() {

@@ -1,9 +1,10 @@
 .footer {
   align-items: center;
-  background-color: #e3e3e3;
+  background-color: #014c03;
   bottom: 0;
   display: flex;
-  height: 45px;
+  height: 60px;
+  width: 100%;
   justify-content: space-around;
   left: 0;
   position: fixed;
@@ -12,6 +13,7 @@
 
 .meal-icon {
   width: 60px;
+  top: 0;
 }
 
 .meal-icon:hover {
@@ -20,6 +22,7 @@
 
 .drink-icon {
   width: 60px;
+  top: 0;
 }
 
 .drink-icon:hover {
