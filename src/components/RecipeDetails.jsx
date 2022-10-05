@@ -177,7 +177,6 @@ function RecipeDetails({ id, path, dataMeal, dataDrink,
                   data-testid="favorite-btn"
                   src={ blackHeartIcon }
                   alt="Favorite Button"
-                  className="btn"
                 />)
                 : (
                   <img
