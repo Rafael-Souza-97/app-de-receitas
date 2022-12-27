@@ -85,11 +85,3 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador para visual
 ## Infos Adicionais
 
 - ###### Percentual de cumprimento de requisitos ([Trybe](https://www.betrybe.com/))- 100%s
-
-## Deploy
-
-https://trivia-game-ten-phi.vercel.app/
-
-## Preview
-
-https://user-images.githubusercontent.com/99055008/209718037-6a71b1e6-e101-4924-b85f-818598312e1f.mp4
