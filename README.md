@@ -12,9 +12,6 @@ Neste projeto foi desenvolvido um aplicativo(web) de dispositivos móveis de rec
 - Acompanhar o progresso de preparação das receitas;
 - Escolher bebidas e comidas;
 
-> Para utilizar este app no seu navegador, recomenda-se utilizar a resolução de tela de 360 x 835 (360 pixels de largura por 640 pixels de altura).
-> Você pode utilizar um plugin do `Chrome`, como o [Window Resizer](https://chrome.google.com/webstore/detail/window-resizer/kkelicaakdanhinjdeammmilcgefonfh?hl=en) para ajustar a resolução da janela do navegador.
-
 <br>
 
 <details>
@@ -58,6 +55,8 @@ npm start
 ```
 
 Abra [http://localhost:3000](http://localhost:3000) no seu navegador para visualiza-lo.
+> Para utilizar este app no seu navegador, recomenda-se utilizar a resolução de tela de 360 x 835 (360 pixels de largura por 835 pixels de altura).
+> Você pode utilizar um plugin do `Chrome`, como o [Window Resizer](https://chrome.google.com/webstore/detail/window-resizer/kkelicaakdanhinjdeammmilcgefonfh?hl=en) para ajustar a resolução da janela do navegador.
 
 <hr>
 <br>
@@ -106,6 +105,9 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador para visual
 - ###### Percentual de cumprimento de requisitos ([Trybe](https://www.betrybe.com/))- 100%s
 
 ## Deploy
+
+> Para utilizar este app no seu navegador, recomenda-se utilizar a resolução de tela de 360 x 835 (360 pixels de largura por 835 pixels de altura).
+> Você pode utilizar um plugin do `Chrome`, como o [Window Resizer](https://chrome.google.com/webstore/detail/window-resizer/kkelicaakdanhinjdeammmilcgefonfh?hl=en) para ajustar a resolução da janela do navegador.
 
 https://app-de-receitas-pink.vercel.app/
 
