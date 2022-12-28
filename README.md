@@ -12,7 +12,7 @@ Neste projeto foi desenvolvido um aplicativo(web) de dispositivos móveis de rec
 - Acompanhar o progresso de preparação das receitas;
 - Escolher bebidas e comidas;
 
-> Para utilizar este app no seu navegador, recomenda-se utilizar a resolução de tela de 360 x 640 (360 pixels de largura por 640 pixels de altura).
+> Para utilizar este app no seu navegador, recomenda-se utilizar a resolução de tela de 360 x 835 (360 pixels de largura por 640 pixels de altura).
 > Você pode utilizar um plugin do `Chrome`, como o [Window Resizer](https://chrome.google.com/webstore/detail/window-resizer/kkelicaakdanhinjdeammmilcgefonfh?hl=en) para ajustar a resolução da janela do navegador.
 
 <br>
