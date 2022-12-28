@@ -108,3 +108,7 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador para visual
 ## Deploy
 
 https://app-de-receitas-pink.vercel.app/
+
+## Preview
+
+https://user-images.githubusercontent.com/99055008/209865701-41ca4496-3b2f-421c-8cca-9fc35158ac16.mp4
