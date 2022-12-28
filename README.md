@@ -2,7 +2,7 @@
 
 Aplicação realizada enquanto aluno da [Trybe](https://www.betrybe.com/) para reforçar os conhecimentos sobre [React Hooks](https://pt-br.reactjs.org/docs/hooks-intro.html) e [Context API](https://reactjs.org/docs/context.html).
 
-Neste projeto foi desenvolvido um aplicativo(web) de dispositivos móveis de receitas, onde o usuário é capaz de:
+Neste projeto foi desenvolvido um aplicativo de receitas para dispositivos móveis (web), onde o usuário é capaz de:
 
 - Ver receitas;
 - Buscar receitas específicas;
