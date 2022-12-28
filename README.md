@@ -85,3 +85,7 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador para visual
 ## Infos Adicionais
 
 - ###### Percentual de cumprimento de requisitos ([Trybe](https://www.betrybe.com/))- 100%s
+
+## Deploy
+
+https://app-de-receitas-pink.vercel.app/
