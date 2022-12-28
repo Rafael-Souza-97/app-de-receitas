@@ -12,6 +12,8 @@ Neste projeto foi desenvolvido um aplicativo(web) de dispositivos móveis de rec
 - Acompanhar o progresso de preparação das receitas;
 - Escolher bebidas e comidas;
 
+Além disso, foi utilizado tecnologias como o [React Testing Library(RTL)](https://testing-library.com/docs/react-testing-library/intro/) e o [Jest](https://jestjs.io/pt-BR/) para testar e validar a aplicação.
+
 <br>
 
 <details>
@@ -102,7 +104,7 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador para visual
 
 ## Infos Adicionais
 
-- ###### Percentual de cumprimento de requisitos ([Trybe](https://www.betrybe.com/))- 100%s
+- ###### Percentual de cumprimento de requisitos ([Trybe](https://www.betrybe.com/))- 96.77%s
 
 ## Deploy
 
